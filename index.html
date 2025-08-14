@@ -178,5 +178,136 @@
 	});
   </script>
   
+  <footer>
+        <hr>
+        <p>© 2025 MWWZTECH | 
+          <a href="https://github.com/mwwzbinf">GitHub</a> |
+          <a href="mailto:mwwz@qq.com">联系我</a> |
+          <a href="javascript:void(0)" onclick="showWechatQR()" class="wechat-link">
+              <i class="icon-wechat">📱</i> 微信公众号
+          </a> |
+		  <!-- 新增留言板链接 -->
+        <a href="#comments" onclick="scrollToComments()">💬 留言板</a>
+      
+          <!-- 二维码弹窗 -->
+          <div id="wechatModal" class="wechat-modal">
+              <div class="modal-content">
+                  <span class="close-btn" onclick="hideWechatQR()">&times;</span>
+                  <h3>扫码关注公众号</h3>
+                  <img src="images/woa.jpg" alt="微信公众号二维码" class="qrcode-img">
+                  <p>打开微信扫一扫</p>
+              </div>
+          </div>
+		  <!-- 新增 utterances 评论容器 -->
+		<div id="comments" class="comments-section" style="margin-top: 50px; padding: 20px; background: #f9f9f9; display: none;">
+			<script src="https://utteranc.es/client.js"
+					repo="mwwzbinf/mwwzbinf.github.io"
+					issue-term="pathname"
+					theme="github-light"
+					crossorigin="anonymous"
+					async>
+			</script>
+		</div>
+	
+      </p>
+    </footer>
+
+    <style>
+      /* 修改微信链接样式 - 去掉边框 */
+      .wechat-link {
+          color: #07C160;
+          text-decoration: none;
+          font-size: inherit; /* 保持与其他链接一致 */
+          padding: 0; /* 去掉内边距 */
+          background: none; /* 去掉背景 */
+          border: none; /* 去掉边框 */
+          transition: color 0.3s;
+          display: inline; /* 保持行内显示 */
+      }
+      .wechat-link:hover {
+          color: #05a84e; /* 悬停时颜色变深 */
+          text-decoration: underline; /* 添加下划线效果 */
+      }
+      
+      /* 保持原有的弹窗样式 */
+      .wechat-modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.7);
+          z-index: 1000;
+          justify-content: center;
+          align-items: center;
+      }
+      .modal-content {
+          background: white;
+          padding: 30px;
+          border-radius: 10px;
+          text-align: center;
+          position: relative;
+          max-width: 80%;
+      }
+      .qrcode-img {
+          width: 200px;
+          height: 200px;
+          margin: 15px 0;
+          border: 1px solid #eee;
+      }
+      .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          font-size: 24px;
+          cursor: pointer;
+          color: #999;
+      }
+  </style>
+  
+  <script>
+	  
+    function scrollToComments() {
+		const commentsSection = document.getElementById("comments");
+		
+		// 判断当前状态并切换
+		if (commentsSection.style.display === "block" || 
+			(commentsSection.style.display === "" && window.getComputedStyle(commentsSection).display !== "none")) {
+			// 如果当前是显示状态 -> 隐藏
+			commentsSection.style.display = "none";
+		} else {
+			// 如果当前是隐藏状态 -> 显示并滚动
+			commentsSection.style.display = "block";
+			setTimeout(() => {
+				commentsSection.scrollIntoView({ behavior: "smooth" });
+			}, 10); // 小延迟确保display生效
+		}
+		
+		return false; // 阻止默认行为
+	}
+	
+      // 保持原有的JavaScript代码
+      function showWechatQR() {
+          document.getElementById('wechatModal').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+      }
+      function hideWechatQR() {
+          document.getElementById('wechatModal').style.display = 'none';
+          document.body.style.overflow = 'auto';
+      }
+      document.addEventListener('click', function(event) {
+          if (event.target === document.getElementById('wechatModal')) {
+              hideWechatQR();
+          }
+      });
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape') {
+              hideWechatQR();
+          }
+      });
+  </script>
+
+  
 </body>
 </html>
