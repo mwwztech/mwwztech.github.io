@@ -1,0 +1,6 @@
+/* 只让描述段落左对齐，保持标题居中 */
+.container p {
+    text-align: left;
+    margin: 20px auto; /* 保持居中布局但内容左对齐 */
+    max-width: 600px; /* 控制内容宽度 */
+}
