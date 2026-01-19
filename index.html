@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
@@ -25,11 +25,11 @@
 		
 			.media-grid {
 		  display: grid;
-		  grid-template-columns: repeat(3, 1fr);
-		  grid-template-rows: repeat(3, auto);
+		  grid-template-columns: repeat(4, 1fr);
+		  grid-template-rows: auto;
 		  gap: 20px;
 		  padding: 20px;
-		  max-width: 1200px;
+		  max-width: 1400px;
 		  margin: 0 auto;
 		}
 
@@ -78,17 +78,24 @@
 		  background: #3367d6;
 		}
 
-		@media (max-width: 768px) {
-		  .media-grid {
-			grid-template-columns: repeat(2, 1fr);
-		  }
+		@media (max-width: 1200px) {
+			.media-grid {
+				grid-template-columns: repeat(3, 1fr);
+			}
+		}
+
+		@media (max-width: 900px) {
+			.media-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
 		}
 
 		@media (max-width: 480px) {
-		  .media-grid {
-			grid-template-columns: 1fr;
-		  }
+			.media-grid {
+				grid-template-columns: 1fr;
+			}
 		}
+
     </style>
 </head>
 <body>
