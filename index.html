@@ -369,113 +369,100 @@
   </script>
 
   
-<!-- 右下角视频浮窗：独立追加代码开始 -->
+
+
+<!-- 浮动视频窗口 -->
 <style>
-  #floatingVideoBox {
+#floatingVideoContainer{
     position: fixed;
     right: 20px;
     bottom: 20px;
-    width: 320px;
-    max-width: calc(100vw - 40px);
-    background: #111;
+    width: 520px;
+    height: 300px;
+    background: #000;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.28);
     z-index: 9999;
-    transition: all 0.25s ease;
-  }
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    transition: all 0.3s ease;
+}
 
-  #floatingVideoBox.maximized {
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    max-width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-  }
+#floatingVideoContainer.maximized{
+    width: 90vw;
+    height: 90vh;
+    right: 5vw;
+    bottom: 5vh;
+}
 
-  #floatingVideoHeader {
-    height: 36px;
-    padding: 0 10px;
-    background: rgba(0,0,0,0.86);
-    color: #fff;
+#floatingVideoHeader{
+    height: 40px;
+    background: rgba(20,20,20,0.95);
+    color: white;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
     font-size: 14px;
-    user-select: none;
-  }
+}
 
-  #floatingVideoActions button {
+#floatingVideoControls button{
+    margin-left: 8px;
     border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 18px;
+    background: #444;
+    color: white;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
     cursor: pointer;
-    padding: 2px 6px;
-    line-height: 1;
-  }
+}
 
-  #floatingVideoActions button:hover {
-    color: #8ab4f8;
-  }
+#floatingVideoControls button:hover{
+    background: #666;
+}
 
-  #floatingVideoBox video {
+#floatingVideo{
     width: 100%;
-    height: 180px;
-    display: block;
+    height: calc(100% - 40px);
+    object-fit: cover;
     background: #000;
-    object-fit: contain;
-  }
+}
 
-  #floatingVideoBox.maximized video {
-    height: calc(100vh - 36px);
-  }
-
-  @media (max-width: 480px) {
-    #floatingVideoBox {
-      right: 10px;
-      bottom: 10px;
-      width: 260px;
-      max-width: calc(100vw - 20px);
+@media (max-width: 768px){
+    #floatingVideoContainer{
+        width: 92vw;
+        height: 240px;
+        right: 4vw;
+        bottom: 10px;
     }
-  }
+}
 </style>
 
-<div id="floatingVideoBox">
-  <div id="floatingVideoHeader">
-    <span>演示视频</span>
-    <div id="floatingVideoActions">
-      <button type="button" id="floatingVideoMaxBtn" title="最大化">□</button>
-      <button type="button" id="floatingVideoCloseBtn" title="关闭">×</button>
+<div id="floatingVideoContainer">
+    <div id="floatingVideoHeader">
+        <span>视频演示</span>
+        <div id="floatingVideoControls">
+            <button onclick="toggleFloatingVideo()">□</button>
+            <button onclick="closeFloatingVideo()">×</button>
+        </div>
     </div>
-  </div>
 
-  <video controls muted playsinline>
-    <!-- 这里改成您 assets 文件夹中的视频文件名即可 -->
-    <source src="assets/shape_match2.mp4" type="video/mp4">
-    您的浏览器不支持视频播放
-  </video>
+    <video id="floatingVideo" controls autoplay muted loop>
+        <source src="assets/shape_match2.mp4" type="video/mp4">
+        您的浏览器不支持视频播放
+    </video>
 </div>
 
 <script>
-  (function () {
-    const box = document.getElementById('floatingVideoBox');
-    const maxBtn = document.getElementById('floatingVideoMaxBtn');
-    const closeBtn = document.getElementById('floatingVideoCloseBtn');
+function toggleFloatingVideo(){
+    document.getElementById('floatingVideoContainer')
+        .classList.toggle('maximized');
+}
 
-    maxBtn.addEventListener('click', function () {
-      box.classList.toggle('maximized');
-      maxBtn.textContent = box.classList.contains('maximized') ? '↙' : '□';
-      maxBtn.title = box.classList.contains('maximized') ? '还原' : '最大化';
-    });
-
-    closeBtn.addEventListener('click', function () {
-      box.style.display = 'none';
-    });
-  })();
+function closeFloatingVideo(){
+    document.getElementById('floatingVideoContainer').style.display='none';
+}
 </script>
-<!-- 右下角视频浮窗：独立追加代码结束 -->
+
 
 </body>
 </html>
