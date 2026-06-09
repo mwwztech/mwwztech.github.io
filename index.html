@@ -112,68 +112,71 @@
 		  }
 		}
 
-		/* 修改：右上角图像样式（使其与视频窗口大小、样式完全一致） */
+		/* 修改：右上角图像样式（改用 contain 确保完整内容自适应显示，与视频窗口等宽） */
 		.top-right-logo {
 			position: fixed;
 			right: 20px;
 			top: 20px;
 			width: 500px;
-			aspect-ratio: 1402 / 1000; /* 与视频保持相同纵横比 */
-			object-fit: cover;
+			max-height: 380px; /* 限制最大高度避免占满半个屏幕 */
+			object-fit: contain; /* 核心：自适应显示全内容，不裁剪 */
+			background: #fff; /* 侧边栏统一白底 */
 			border-radius: 12px;
-			box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+			box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 			z-index: 9998;
 			transition: all 0.3s ease;
 		}
 
-		/* 修改：右侧“开发笔记”悬浮按钮样式（定位在图片和视频中间，对齐左侧/贴靠主体右侧） */
+		/* 修改：右侧“开发笔记”悬浮按钮样式（竖排显示，且与图片/视频窗口的左边缘对齐） */
 		.sidebar-note-btn {
 			position: fixed;
-			/* 刚好定位在固定宽度500px的侧边栏窗口左侧（即距离右侧520px，可根据需要微调） */
+			/* 图片和视频宽500px，边距20px，合起来是520px，这样刚好在它们的左侧边缘垂直对齐 */
 			right: 520px; 
 			top: 50%;
 			transform: translateY(-50%);
 			background-color: #0366d6;
 			color: white;
-			padding: 12px 20px;
+			writing-mode: vertical-rl; /* 核心：文字竖向排列 */
+			text-orientation: mixed;   /* 确保中文字符与Emoji方向正常 */
+			padding: 20px 10px;
 			font-size: 15px;
 			font-weight: bold;
+			letter-spacing: 4px;       /* 竖排字间距 */
 			text-decoration: none;
-			border-radius: 6px;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+			border-radius: 6px 0 0 6px; /* 向左凸出的圆角 */
+			box-shadow: -3px 4px 12px rgba(0,0,0,0.15);
 			transition: all 0.3s ease;
 			z-index: 10000;
-			white-space: nowrap;
 		}
 
 		.sidebar-note-btn:hover {
 			background-color: #024da2;
-			transform: translateY(-50%) scale(1.05);
+			padding-left: 14px; /* 悬停时稍微向网页主体拉宽 */
 		}
 
-		/* 适配大屏幕全屏状态（当视频放大时，调整层级确保按钮可用） */
+		/* 适配大屏幕全屏状态下的联动 */
 		#floatingVideoContainer.maximized ~ .sidebar-note-btn {
-			right: calc(5vw + min(90vw, 1200px) + 20px);
+			display: none; /* 视频全屏放大时隐藏侧边按钮防遮挡 */
 		}
 
-		/* 移动端与小屏幕适配 */
+		/* 移动端与中等屏幕自适应处理 */
 		@media (max-width: 1400px) {
-			/* 当屏幕不够宽容纳 800px主体 + 500px侧边栏时，将侧边栏元素转为流式布局或缩小 */
 			.top-right-logo {
 				width: 350px;
 			}
 			.sidebar-note-btn {
-				right: 370px;
+				right: 370px; /* 保持与350px图片左侧对齐 (350+20) */
 			}
 		}
 
-		@media (max-width: 1024px) {
+		@media (max-width: 1100px) {
 			.top-right-logo {
 				position: static; 
 				display: block;
 				margin: 20px auto;
 				width: 100%;
 				max-width: 500px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			}
 			.sidebar-note-btn {
 				position: fixed;
@@ -182,8 +185,10 @@
 				top: auto;
 				right: auto;
 				transform: translateX(-50%);
+				writing-mode: horizontal-tb; /* 移动端切回横排显示 */
 				border-radius: 20px;
 				padding: 10px 30px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 			}
 			.sidebar-note-btn:hover {
 				transform: translateX(-50%) scale(1.05);
