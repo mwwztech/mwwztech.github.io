@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-128Z75MF73"></script>
 	<script>
 	  window.dataLayer = window.dataLayer || [];
@@ -111,57 +112,9 @@
 			grid-template-columns: 1fr;
 		  }
 		}
-
-		/* 新增：右上角图像样式 */
-		.top-right-logo {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-			max-width: 120px;
-			height: auto;
-			z-index: 100;
-		}
-
-		/* 新增：右侧“开发笔记”悬浮按钮样式 */
-		.sidebar-note-btn {
-			position: fixed;
-			right: 0;
-			top: 50%;
-			transform: translateY(-50%);
-			background-color: #0366d6;
-			color: white;
-			writing-mode: vertical-rl; /* 文字竖排显示 */
-			padding: 15px 8px;
-			font-size: 14px;
-			letter-spacing: 2px;
-			text-decoration: none;
-			border-radius: 8px 0 0 8px;
-			box-shadow: -2px 2px 8px rgba(0,0,0,0.2);
-			transition: all 0.3s ease;
-			z-index: 9999;
-		}
-
-		.sidebar-note-btn:hover {
-			background-color: #024da2;
-			padding-right: 12px; /* 悬停时稍微向左延展 */
-		}
-
-		/* 适配移动端：防止右上角图片遮挡或悬浮按钮影响阅读 */
-		@media (max-width: 1024px) {
-			.top-right-logo {
-				position: static; /* 移动端放回流中显示 */
-				display: block;
-				margin: 10px auto;
-				max-width: 100px;
-			}
-		}
     </style>
 </head>
 <body>
-	<img src="assets/mwwz_vs_halcon.png" alt="MWWZ vs HALCON" class="top-right-logo">
-
-	<a href="https://www.mwwztech.xyz/" target="_blank" class="sidebar-note-btn">📝 开发笔记</a>
-
 	<main>
 		<div class="container">
 			<h1>MWWZTECH</h1>
@@ -169,6 +122,7 @@
 		</div>
 		
 		<div class="media-grid">
+			<!-- 第一行 -->
 			<div class="media-item">
 			 <h3 class="media-title">模板匹配(MFC)</h3>
 			  <img src="assets/demo_mfc_x86.png" alt="模板匹配">
@@ -193,6 +147,7 @@
 			  </div>
 			</div>
 			
+			<!-- 第二行 -->
 			<div class="media-item">
 			<h3 class="media-title">接触角测量(MFC)</h3>
 			  <img src="assets/demo_cam.png" alt="接触角测量">
@@ -205,6 +160,7 @@
 			<h3 class="media-title">椭圆等分</h3>
 			  <img src="assets/ellipse_divide.png" alt="椭圆等分">
 			  <div class="download-area">
+				<!-- <a href="download/demo_cam_x64_2025.08.05.zip" download class="download-btn">下载</a> -->
 				<a href="javascript:void(0)" 
 				   class="download-btn" 
 				   style="cursor: not-allowed; opacity: 0.6;"
@@ -237,6 +193,7 @@
 				(您的浏览器不支持视频播放)
 			  </video>
 			  <div class="download-area">
+				<!-- <a href="" download class="download-btn">下载</a> -->
 				<a href="javascript:void(0)" 
 				   class="download-btn" 
 				   style="cursor: not-allowed; opacity: 0.6;"
@@ -253,6 +210,7 @@
 				(您的浏览器不支持视频播放)
 			  </video>
 			  <div class="download-area">
+				<!-- <a href="" download class="download-btn">下载</a> -->
 				<a href="javascript:void(0)" 
 				   class="download-btn" 
 				   style="cursor: not-allowed; opacity: 0.6;"
@@ -288,8 +246,10 @@
 		  <a href="javascript:void(0)" onclick="showWechatQR()" class="wechat-link">
 			  <i class="icon-wechat">📱</i> 微信公众号
 		  </a> |
-		  <a href="#comments" onclick="scrollToComments()">💬 留言板</a>
+		  <!-- 新增留言板链接 -->
+		<a href="#comments" onclick="scrollToComments()">💬 留言板</a>
 	  
+		  <!-- 二维码弹窗 -->
 		  <div id="wechatModal" class="wechat-modal">
 			  <div class="modal-content">
 				  <span class="close-btn" onclick="hideWechatQR()">&times;</span>
@@ -298,7 +258,8 @@
 				  <p>打开微信扫一扫</p>
 			  </div>
 		  </div>
-		  <div id="comments" class="comments-section" style="margin-top: 50px; padding: 20px; background: #f9f9f9; display: none;">
+		  <!-- 新增 utterances 评论容器 -->
+		<div id="comments" class="comments-section" style="margin-top: 50px; padding: 20px; background: #f9f9f9; display: none;">
 			<script src="https://utteranc.es/client.js"
 					repo="mwwzbinf/mwwzbinf.github.io"
 					issue-term="pathname"
@@ -410,6 +371,7 @@
   
 
 
+<!-- 浮动视频窗口 -->
 <style>
 #floatingVideoContainer{
     position: fixed;
