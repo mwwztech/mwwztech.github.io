@@ -112,7 +112,7 @@
 		  }
 		}
 
-		/* 大屏：右上角图像样式（保持与视频窗口等宽，全内容自适应） */
+		/* 右上角图像样式（保持与视频窗口等宽，全内容自适应） */
 		.top-right-logo {
 			position: fixed;
 			right: 20px;
@@ -127,22 +127,23 @@
 			transition: all 0.3s ease;
 		}
 
-		/* 大屏：使“开发笔记”悬浮在主体内容左侧边缘，并向右延伸 */
+		/* 修改：使“开发笔记”悬浮在主体内容左侧边缘，并向右延伸 */
 		.sidebar-note-btn {
 			position: fixed;
+			/* 50% 是屏幕正中，400px是主体主体半宽(800/2)，再减去40px作为间距和自身宽度的富余 */
 			left: calc(50% - 400px - 40px); 
 			top: 50%;
 			transform: translateY(-50%);
 			background-color: #0366d6;
 			color: white;
-			writing-mode: vertical-rl; 
+			writing-mode: vertical-rl; /* 保持文字竖向排列 */
 			text-orientation: mixed;   
 			padding: 20px 10px;
 			font-size: 15px;
 			font-weight: bold;
 			letter-spacing: 4px;       
 			text-decoration: none;
-			border-radius: 6px 0 0 6px; 
+			border-radius: 6px 0 0 6px; /* 圆角翻转，呈现向右延伸、指向主体的视觉感 */
 			box-shadow: -3px 4px 12px rgba(0,0,0,0.15);
 			transition: all 0.3s ease;
 			z-index: 10000;
@@ -150,7 +151,7 @@
 
 		.sidebar-note-btn:hover {
 			background-color: #024da2;
-			padding-left: 14px; 
+			padding-left: 14px; /* 悬停时稍微向右（内容主体）拉伸 */
 		}
 
 		/* 适应中等屏幕：当侧边栏空间不足以放下500px图片时，图片缩小 */
@@ -163,37 +164,34 @@
 		/* 适应较窄屏幕：防止左侧按钮因为 calc 定位游离到屏幕外面 */
 		@media (max-width: 920px) {
 			.sidebar-note-btn {
-				left: 10px; 
+				left: 10px; /* 当屏幕宽度逼近主体时，让按钮安全固定在浏览器最左侧 */
 			}
 		}
 
-		/* 修改：手机端与小屏幕自适应处理 */
+		/* 移动端与小屏幕自适应处理 */
 		@media (max-width: 1100px) {
 			.top-right-logo {
-				position: static; /* 恢复正常文档流 */
+				position: static; 
 				display: block;
-				margin: 10px auto;
+				margin: 20px auto;
 				width: 100%;
 				max-width: 500px;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 			}
-			
 			.sidebar-note-btn {
-				position: static; /* 核心修改：不再固定在底部，而是顺着图片下方排布 */
-				display: inline-block;
-				margin: 10px auto 20px auto;
-				transform: none; /* 清除大屏的垂直居中偏移 */
-				writing-mode: horizontal-tb; /* 手机端切换回正常的横排文字 */
+				position: fixed;
+				bottom: 20px;
+				left: 50%;
+				top: auto;
+				right: auto;
+				transform: translateX(-50%);
+				writing-mode: horizontal-tb; /* 移动端切回横排显示 */
+				border-radius: 20px;
 				padding: 10px 30px;
-				border-radius: 20px; /* 全圆角胶囊按钮 */
-				box-shadow: 0 3px 10px rgba(3, 102, 214, 0.2);
-				width: auto;
-				max-width: 200px;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 			}
-			
 			.sidebar-note-btn:hover {
-				transform: scale(1.05);
-				padding-left: 30px; /* 清除大屏的向左拉伸 */
+				transform: translateX(-50%) scale(1.05);
 			}
 		}
     </style>
