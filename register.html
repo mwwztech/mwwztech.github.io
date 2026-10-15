@@ -1,72 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>注册账号 - mwwztech</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Microsoft YaHei", sans-serif; background: linear-gradient(135deg,#667eea,#764ba2);
-         min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .card { background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.3);
-          padding: 40px; width: 100%; max-width: 400px; }
-  h1 { font-size: 22px; color: #333; text-align: center; margin-bottom: 8px; }
-  .sub { color: #888; font-size: 14px; text-align: center; margin-bottom: 28px; }
-  label { display: block; font-size: 14px; color: #555; margin-bottom: 6px; }
-  input { width: 100%; padding: 11px 12px; border: 1px solid #d9d9d9; border-radius: 6px;
-          font-size: 14px; margin-bottom: 16px; outline: none; }
-  input:focus { border-color: #667eea; }
-  button { width: 100%; padding: 12px; background: #667eea; color: #fff; border: none;
-           border-radius: 6px; font-size: 15px; cursor: pointer; }
-  button:hover { background: #5568d8; }
-  button:disabled { background: #aaa; cursor: not-allowed; }
-  .msg { padding: 10px 12px; border-radius: 6px; font-size: 14px; margin-bottom: 16px; display: none; }
-  .ok  { display: block; background: #f0fff4; color: #22863a; border: 1px solid #85e0a1; }
-  .err { display: block; background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
-  .tip { margin-top: 18px; font-size: 13px; color: #999; text-align: center; }
-</style>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=https://auth.mwwztech.com/register">
+<title>正在跳转...</title>
 </head>
 <body>
-<div class="card">
-  <h1>创建账号</h1>
-  <p class="sub">注册后需管理员审核通过方可登录</p>
-  <div id="msg" class="msg"></div>
-  <form id="regForm">
-    <label>用户名</label>
-    <input id="username" type="text" placeholder="3-30位字母、数字或下划线" required>
-    <label>密码</label>
-    <input id="password" type="password" placeholder="至少8位" required>
-    <label>确认密码</label>
-    <input id="password2" type="password" placeholder="再次输入密码" required>
-    <button id="btn" type="submit">注 册</button>
-  </form>
-  <p class="tip">注册即表示你同意合理使用本服务</p>
-</div>
-<script>
-const API = "https://auth.mwwztech.com/register";
-const msg = document.getElementById("msg");
-function show(t, ok) { msg.textContent = t; msg.className = "msg " + (ok ? "ok" : "err"); }
-
-document.getElementById("regForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value;
-  const password2 = document.getElementById("password2").value;
-  if (!/^[A-Za-z0-9_]{3,30}$/.test(username)) return show("用户名需为3-30位字母、数字或下划线", false);
-  if (password.length < 8)  return show("密码至少8位", false);
-  if (password !== password2) return show("两次输入的密码不一致", false);
-  const btn = document.getElementById("btn");
-  btn.disabled = true; btn.textContent = "提交中...";
-  try {
-    const res = await fetch(API, { method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }) });
-    const data = await res.json().catch(() => ({}));
-    if (res.ok) { show(data.message || "注册成功，请等待管理员审核", true); e.target.reset(); }
-    else show(data.error || ("注册失败（" + res.status + "）"), false);
-  } catch { show("网络错误，请稍后重试", false); }
-  finally { btn.disabled = false; btn.textContent = "注 册"; }
-});
-</script>
+<p style="font-family:system-ui;text-align:center;margin-top:40vh">
+  注册页面已迁移，正在跳转……
+  <a href="https://auth.mwwztech.com/register">如果未跳转请点这里</a>
+</p>
+<script>location.replace("https://auth.mwwztech.com/register");</script>
 </body>
 </html>
