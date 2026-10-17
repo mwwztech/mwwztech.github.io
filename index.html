@@ -130,7 +130,7 @@
 			transition: all 0.3s ease;
 		}
 
-		/* 大屏：使“开发笔记”悬浮在主体内容左侧边缘，并向右延伸 */
+		/* 大屏：使"开发笔记"悬浮在主体内容左侧边缘，并向右延伸 */
 		.sidebar-note-btn {
 			position: fixed;
 			left: calc(50% - 400px - 40px); 
@@ -327,13 +327,11 @@
 	<footer>
 		<hr>
 		<p>© 2026 MWWZTECH | 
-		  <a href="https://github.com/mwwzbinf">GitHub</a> |
 		  <a href="mailto:mwwz@qq.com">联系我</a> |
 		  <a href="javascript:void(0)" onclick="showWechatQR()" class="wechat-link">
 			  <i class="icon-wechat">📱</i> 微信公众号
 		  </a> |
-		  <a href="#comments" onclick="scrollToComments()">💬 留言板</a>
-		  | <a href="/register.html">📝 注册账号</a>
+		  <a href="/register.html">📝 注册账号</a>
 	  
 		  <div id="wechatModal" class="wechat-modal">
 			  <div class="modal-content">
@@ -343,15 +341,6 @@
 				  <p>打开微信扫一扫</p>
 			  </div>
 		  </div>
-		  <div id="comments" class="comments-section" style="margin-top: 50px; padding: 20px; background: #f9f9f9; display: none;">
-			<script src="https://utteranc.es/client.js"
-					repo="mwwzbinf/mwwzbinf.github.io"
-					issue-term="pathname"
-					theme="github-light"
-					crossorigin="anonymous"
-					async>
-			</script>
-		</div>
 
 	  </p>
 	</footer>
@@ -411,26 +400,6 @@
   </style>
   
   <script>
-	  
-    function scrollToComments() {
-		const commentsSection = document.getElementById("comments");
-		
-		// 判断当前状态并切换
-		if (commentsSection.style.display === "block" || 
-			(commentsSection.style.display === "" && window.getComputedStyle(commentsSection).display !== "none")) {
-			// 如果当前是显示状态 -> 隐藏
-			commentsSection.style.display = "none";
-		} else {
-			// 如果当前是隐藏状态 -> 显示并滚动
-			commentsSection.style.display = "block";
-			setTimeout(() => {
-				commentsSection.scrollIntoView({ behavior: "smooth" });
-			}, 10); // 小延迟确保display生效
-		}
-		
-		return false; // 阻止默认行为
-	}
-	
       // 保持原有的JavaScript代码
       function showWechatQR() {
           document.getElementById('wechatModal').style.display = 'flex';
@@ -453,6 +422,7 @@
   </script>
 
   
+
 
 
 <style>
