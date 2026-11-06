@@ -212,20 +212,26 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
             
-            /* ★修改：容器改为文档流内居中，两个按钮竖向堆叠 ★ */
+            /* ★修改：两个按钮改为一行显示（一左一右） ★ */
             .side-btns {
                 position: static;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
+                flex-direction: row;       /* 横向排列 */
+                justify-content: center;   /* 整行居中 */
+                align-items: stretch;
+                flex-wrap: nowrap;         /* 禁止换行 */
+                gap: 12px;
                 margin: 10px auto 20px auto;
                 transform: none;
             }
             
             .sidebar-note-btn {
                 writing-mode: horizontal-tb; /* 手机端切换回正常的横排文字 */
-                padding: 10px 30px;
+                flex: 1 1 0;                 /* 两钮等宽填满一行 */
+                max-width: 175px;
+                white-space: nowrap;         /* 文字不折行 */
+                text-align: center;
+                padding: 10px 12px;
                 border-radius: 20px; /* 全圆角胶囊按钮 */
                 box-shadow: 0 3px 10px rgba(3, 102, 214, 0.2);
                 letter-spacing: 2px;
@@ -233,13 +239,16 @@
             
             .sidebar-note-btn:hover {
                 transform: scale(1.05);
-                padding-left: 30px; /* 清除大屏的向左拉伸 */
             }
 
-            /* ★新增：反馈支持按钮的手机端样式（与开发笔记一致） ★ */
+            /* ★修改：反馈支持按钮手机端样式（与开发笔记并排一行） ★ */
             .sidebar-feedback-btn {
                 writing-mode: horizontal-tb;
-                padding: 10px 30px;
+                flex: 1 1 0;
+                max-width: 175px;
+                white-space: nowrap;
+                text-align: center;
+                padding: 10px 12px;
                 border-radius: 20px;
                 box-shadow: 0 3px 10px rgba(22, 163, 74, 0.25);
                 letter-spacing: 2px;
@@ -247,7 +256,6 @@
 
             .sidebar-feedback-btn:hover {
                 transform: scale(1.05);
-                padding-left: 30px;
             }
         }
     </style>
