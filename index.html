@@ -1,596 +1,742 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4785846084875616"
-         crossorigin="anonymous"></script>
-     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-128Z75MF73"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MWWZTech｜HALCON 替代方案：形状模板匹配、2D 测量与形态学</title>
+<meta name="description" content="MWWZTech 提供轻量工业视觉算法方案，替代 HALCON 的高成本授权：基于形状的模板匹配、2D 测量、区域形态学，支持 MFC/QT，Windows 单机部署，可按项目授权。">
+<meta name="keywords" content="HALCON替代,机器视觉,形状模板匹配,2D测量,区域形态学,工业视觉,MWWZTech">
+<meta name="author" content="MWWZTech">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0b5cad">
+<link rel="canonical" href="https://www.mwwztech.com/">
 
-      gtag('config', 'G-R6NVH9WSW4');
-    </script>
-    
-    <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?38b39f32899f019fc768821d01582475";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-    
-    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-    <script>LA.init({id:"3P7Nu0czNckLF8N6",ck:"3P7Nu0czNckLF8N6"})</script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MWWZTECH</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #0366d6;
-            text-align: center; /* 显式设置为居中 */
-        }
-        .container {
-            background-color: #f6f8fa;
-            padding: 20px;
-            border-radius: 5px;
-            text-align: left;
-        }
-        
-        .media-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-template-rows: repeat(3, auto);
-          gap: 10px;
-          padding: 10px;
-          max-width: 1200px;
-          margin: 0 auto;
-        }        
+<!-- Open Graph / 社交分享 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MWWZTech">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:url" content="https://www.mwwztech.com/">
+<meta property="og:title" content="MWWZTech｜HALCON 替代方案：形状模板匹配、2D 测量与形态学">
+<meta property="og:description" content="轻量工业视觉算法方案：形状模板匹配、2D 测量、区域形态学，支持 MFC/QT，Windows 单机部署，按项目授权。">
+<meta property="og:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MWWZTech｜HALCON 替代方案">
+<meta name="twitter:description" content="形状模板匹配、2D 测量、区域形态学，支持 MFC/QT，Windows 单机部署。">
+<meta name="twitter:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
 
-        .media-item {
-          display: flex;
-          flex-direction: column;
-          border-radius: 8px;
-          overflow: hidden;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-          background: #fff;
-          transition: transform 0.3s ease;
-        }
+<!-- 站点图标（内联 SVG，无需额外文件） -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b5cad'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
 
-        .media-item:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .media-item img,
-        .media-item video {
-          width: 100%;
-          height: 200px;
-          object-fit: cover;
-          display: block;
-        }
-
-        .download-area {
-          padding: 12px;
-          text-align: center;
-          background: #f8f9fa;
-          border-top: 1px solid #e9ecef;
-        }
-
-        .download-btn {
-          display: inline-block;
-          padding: 8px 16px;
-          background: #4285f4;
-          color: white;
-          text-decoration: none;
-          border-radius: 4px;
-          font-size: 14px;
-          transition: background 0.3s;
-        }
-
-        .download-btn:hover {
-          background: #3367d6;
-        }
-
-        @media (max-width: 768px) {
-          .media-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (max-width: 480px) {
-          .media-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        /* 大屏：右上角图像样式（保持与视频窗口等宽，全内容自适应） */
-        .top-right-logo {
-            position: fixed;
-            right: 20px;
-            top: 20px;
-            width: 500px;
-            max-height: 380px; 
-            object-fit: contain; 
-            background: #fff; 
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            z-index: 9998;
-            transition: all 0.3s ease;
-        }
-
-        /* ★修改：侧边按钮容器——"开发笔记"与"反馈支持"竖排堆叠，统一固定定位 ★ */
-        .side-btns {
-            position: fixed;
-            left: calc(50% - 400px - 40px); 
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;   /* 竖排堆叠 */
-            gap: 12px;
-            align-items: stretch;
-            z-index: 10000;
-        }
-
-        /* ★修改：不再自己定位，交给容器；其余样式保持原样 ★ */
-        .sidebar-note-btn {
-            background-color: #0366d6;
-            color: white;
-            writing-mode: vertical-rl; 
-            text-orientation: mixed;   
-            padding: 20px 10px;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 4px;       
-            text-decoration: none;
-            border-radius: 6px; 
-            box-shadow: -3px 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .sidebar-note-btn:hover {
-            background-color: #024da2;
-            padding-left: 14px; 
-        }
-
-        /* ★新增：反馈支持按钮——与开发笔记同款竖排样式，绿色区分 ★ */
-        .sidebar-feedback-btn {
-            background-color: #16a34a;
-            color: white;
-            writing-mode: vertical-rl; 
-            text-orientation: mixed;   
-            padding: 20px 10px;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 4px;       
-            text-decoration: none;
-            border-radius: 6px; 
-            box-shadow: -3px 4px 12px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .sidebar-feedback-btn:hover {
-            background-color: #15803d;
-            padding-left: 14px; 
-        }
-
-        /* 适应中等屏幕：当侧边栏空间不足以放下500px图片时，图片缩小 */
-        @media (max-width: 1400px) {
-            .top-right-logo {
-                width: 350px;
-            }
-        }
-
-        /* 适应较窄屏幕：防止左侧按钮因为 calc 定位游离到屏幕外面 */
-        @media (max-width: 920px) {
-            .side-btns {
-                left: 10px; 
-            }
-        }
-
-        /* 修改：手机端与小屏幕自适应处理 */
-        @media (max-width: 1100px) {
-            .top-right-logo {
-                position: static; /* 恢复正常文档流 */
-                display: block;
-                margin: 10px auto;
-                width: 100%;
-                max-width: 500px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            }
-            
-            /* ★修改：两个按钮改为一行显示（一左一右） ★ */
-            .side-btns {
-                position: static;
-                display: flex;
-                flex-direction: row;       /* 横向排列 */
-                justify-content: center;   /* 整行居中 */
-                align-items: stretch;
-                flex-wrap: nowrap;         /* 禁止换行 */
-                gap: 12px;
-                margin: 10px auto 20px auto;
-                transform: none;
-            }
-            
-            .sidebar-note-btn {
-                writing-mode: horizontal-tb; /* 手机端切换回正常的横排文字 */
-                flex: 1 1 0;                 /* 两钮等宽填满一行 */
-                max-width: 175px;
-                white-space: nowrap;         /* 文字不折行 */
-                text-align: center;
-                padding: 10px 12px;
-                border-radius: 20px; /* 全圆角胶囊按钮 */
-                box-shadow: 0 3px 10px rgba(3, 102, 214, 0.2);
-                letter-spacing: 2px;
-            }
-            
-            .sidebar-note-btn:hover {
-                transform: scale(1.05);
-            }
-
-            /* ★修改：反馈支持按钮手机端样式（与开发笔记并排一行） ★ */
-            .sidebar-feedback-btn {
-                writing-mode: horizontal-tb;
-                flex: 1 1 0;
-                max-width: 175px;
-                white-space: nowrap;
-                text-align: center;
-                padding: 10px 12px;
-                border-radius: 20px;
-                box-shadow: 0 3px 10px rgba(22, 163, 74, 0.25);
-                letter-spacing: 2px;
-            }
-
-            .sidebar-feedback-btn:hover {
-                transform: scale(1.05);
-            }
-        }
-    </style>
-</head>
-<body>
-    <img src="assets/mwwz_vs_halcon.png" alt="MWWZ vs HALCON" class="top-right-logo">
-
-    <!-- ★修改：两个侧边按钮包进同一容器，“反馈支持”在“开发笔记”正下方 ★ -->
-    <div class="side-btns">
-        <a href="https://www.mwwztech.xyz/" target="_blank" class="sidebar-note-btn">📝 开发笔记</a>
-        <a href="https://auth.mwwztech.com/feedback" target="_blank" class="sidebar-feedback-btn">💬 反馈支持</a>
-    </div>
-
-    <main>
-        <div class="container">
-            <h1>MWWZTECH</h1>
-            <p>🚀 专注于提供halcon的替代算法方案，目前已实现基于形状的模板匹配、2D区域形态学与2D测量等功能。如需使用，欢迎联系。</p>
-        </div>
-        
-        <div class="media-grid">
-            <div class="media-item">
-             <h3 class="media-title">模板匹配(MFC)</h3>
-              <img src="assets/demo_mfc_x86.png" alt="模板匹配">
-              <div class="download-area">
-                <!-- <a href="download/demo_mfc_x86_2026.11.06.zip" download class="download-btn">下载</a> -->
-				<a href="https://dl.mwwztech.com/demo_mfc_x86_2026.11.18.zip" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">模板匹配(QT)</h3>
-              <img src="assets/demo_qt_x64.png" alt="模板匹配">
-              <div class="download-area">
-                <!-- <a href="download/demo_qt_x64_2026.11.06.zip" download class="download-btn">下载</a> -->
-				<a href="https://dl.mwwztech.com/demo_qt_x64_2026.11.18.zip" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">2D测量、区域形态学(MFC)</h3>
-              <img src="assets/demo_meas.png" alt="2D测量、区域形态学">
-              <div class="download-area">
-                <!-- <a href="download/demo_meas_2026.11.06.zip" download class="download-btn">下载</a> -->
-				<a href="https://dl.mwwztech.com/demo_meas_2026.11.18.zip" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">接触角测量(MFC)</h3>
-              <img src="assets/demo_cam.png" alt="接触角测量">
-              <div class="download-area">
-                <!-- <a href="download/demo_cam_x64_2026.11.06.zip" download class="download-btn">下载</a> -->
-				<a href="https://dl.mwwztech.com/demo_cam_x64_2026.11.18.zip" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">椭圆等分</h3>
-              <img src="assets/ellipse_divide.png" alt="椭圆等分">
-              <div class="download-area">
-                <a href="javascript:void(0)" 
-                   class="download-btn" 
-                   style="cursor: not-allowed; opacity: 0.6;"
-                   title="暂无下载文件">
-                   下载
-                </a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">MaskEditor</h3>
-              <img src="assets/mask_editor.png" alt="MaskEditor">
-              <div class="download-area">
-                <!-- <a href="download/MaskEditor2.0.rar" download class="download-btn">下载</a> -->
-                <a href="https://dl.mwwztech.com/MaskEditor2.0.rar" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">LANDropMe</h3>
-              <img src="assets/landrop_me.png" alt="LANDropMe">
-              <div class="download-area">
-                <!-- <a href="download/LANDropMe.rar" download class="download-btn">下载</a>  -->
-				<a href="https://dl.mwwztech.com/LANDropMe.rar" download class="download-btn">下载</a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">Bin Packing</h3>
-              <video controls>
-                <source src="assets/cho_0.mp4" type="video/mp4">
-                (您的浏览器不支持视频播放)
-              </video>
-              <div class="download-area">
-                <a href="javascript:void(0)" 
-                   class="download-btn" 
-                   style="cursor: not-allowed; opacity: 0.6;"
-                   title="暂无下载文件">
-                   下载
-                </a>
-              </div>
-            </div>
-            
-            <div class="media-item">
-            <h3 class="media-title">Laser Cutting</h3>
-              <video controls>
-                <source src="assets/cho_1.mp4" type="video/mp4">
-                (您的浏览器不支持视频播放)
-              </video>
-              <div class="download-area">
-                <a href="javascript:void(0)" 
-                   class="download-btn" 
-                   style="cursor: not-allowed; opacity: 0.6;"
-                   title="暂无下载文件">
-                   下载
-                </a>
-              </div>
-            </div>
-            
-            
-        </div>
-
-      <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const downloadBtns = document.querySelectorAll('.download-btn');
-      
-      downloadBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          console.log('下载文件: ' + this.getAttribute('href'));
-          // 可以在这里添加下载统计代码
-        });
-      });
-    });
-  </script>
-  
-  </main>
-  
-    <footer>
-        <hr>
-        <p>© 2026 MWWZTECH | 
-          <a href="mailto:mwwz@qq.com">联系我</a> |
-          <a href="javascript:void(0)" onclick="showWechatQR()" class="wechat-link">
-              <i class="icon-wechat">📱</i> 微信公众号
-          </a> |
-          <a href="/register.html">📝 注册账号</a>
-      
-          <div id="wechatModal" class="wechat-modal">
-              <div class="modal-content">
-                  <span class="close-btn" onclick="hideWechatQR()">&times;</span>
-                  <h3>扫码关注公众号</h3>
-                  <img src="assets/woa.jpg" alt="微信公众号二维码" class="qrcode-img">
-                  <p>打开微信扫一扫</p>
-              </div>
-          </div>
-
-      </p>
-    </footer>
-
-    <style>        
-      /* 修改微信链接样式 - 去掉边框 */
-      .wechat-link {
-          color: #07C160;
-          text-decoration: none;
-          font-size: inherit; /* 保持与其他链接一致 */
-          padding: 0; /* 去掉内边距 */
-          background: none; /* 去掉背景 */
-          border: none; /* 去掉边框 */
-          transition: color 0.3s;
-          display: inline; /* 保持行内显示 */
-      }
-      .wechat-link:hover {
-          color: #05a84e; /* 悬停时颜色变深 */
-          text-decoration: underline; /* 添加下划线效果 */
-      }
-      
-      /* 保持原有的弹窗样式 */
-      .wechat-modal {
-          display: none;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0,0,0,0.7);
-          z-index: 1000;
-          justify-content: center;
-          align-items: center;
-      }
-      .modal-content {
-          background: white;
-          padding: 30px;
-          border-radius: 10px;
-          text-align: center;
-          position: relative;
-          max-width: 80%;
-      }
-      .qrcode-img {
-          width: 200px;
-          height: 200px;
-          margin: 15px 0;
-          border: 1px solid #eee;
-      }
-      .close-btn {
-          position: absolute;
-          top: 10px;
-          right: 15px;
-          font-size: 24px;
-          cursor: pointer;
-          color: #999;
-      }
-  </style>
-  
-  <script>
-      // 保持原有的JavaScript代码
-      function showWechatQR() {
-          document.getElementById('wechatModal').style.display = 'flex';
-          document.body.style.overflow = 'hidden';
-      }
-      function hideWechatQR() {
-          document.getElementById('wechatModal').style.display = 'none';
-          document.body.style.overflow = 'auto';
-      }
-      document.addEventListener('click', function(event) {
-          if (event.target === document.getElementById('wechatModal')) {
-              hideWechatQR();
-          }
-      });
-      document.addEventListener('keydown', function(event) {
-          if (event.key === 'Escape') {
-              hideWechatQR();
-          }
-      });
-  </script>
-
-  
-
-
-
-<style>
-#floatingVideoContainer{
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    width: 500px;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    z-index: 9999;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-    transition: all 0.3s ease;
-}
-
-#floatingVideoContainer.maximized{
-    width: min(90vw, 1200px);
-    right: 5vw;
-    bottom: 5vh;
-}
-
-#floatingVideoHeader{
-    height: 40px;
-    background: rgba(20,20,20,0.95);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-#floatingVideoControls button{
-    margin-left: 8px;
-    border: none;
-    background: #444;
-    color: white;
-    border-radius: 4px;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-}
-
-#floatingVideoControls button:hover{
-    background: #666;
-}
-
-#floatingVideo{
-    width: 100%;
-    aspect-ratio: 1402 / 1000;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    background: #000;
-}
-
-@media (max-width: 768px){
-    #floatingVideoContainer{
-        width: 72vw;
-        right: 4vw;
-        bottom: 10px;
+<!-- 结构化数据：组织与站点 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.mwwztech.com/#org",
+      "name": "MWWZTech",
+      "url": "https://www.mwwztech.com/",
+      "email": "mwwz@qq.com",
+      "description": "工业机器视觉算法方案提供商，提供 HALCON 的轻量替代方案：形状模板匹配、2D 测量、区域形态学。"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mwwztech.com/#website",
+      "url": "https://www.mwwztech.com/",
+      "name": "MWWZTech",
+      "inLanguage": "zh-CN",
+      "publisher": { "@id": "https://www.mwwztech.com/#org" }
     }
-
-    #floatingVideoContainer.maximized{
-        width: 96vw;
-        right: 2vw;
-        bottom: 10px;
-    }
-}
-</style>
-
-<div id="floatingVideoContainer">
-    <div id="floatingVideoHeader">
-        <span>视频演示</span>
-        <div id="floatingVideoControls">
-            <button onclick="toggleFloatingVideo()">□</button>
-            <button onclick="closeFloatingVideo()">×</button>
-        </div>
-    </div>
-
-    <video id="floatingVideo" controls autoplay muted loop playsinline webkit-playsinline>
-        <source src="assets/shape_match2.mp4" type="video/mp4">
-        您的浏览器不支持视频播放
-    </video>
-</div>
-
-<script>
-function toggleFloatingVideo(){
-    document.getElementById('floatingVideoContainer')
-        .classList.toggle('maximized');
-}
-
-function closeFloatingVideo(){
-    document.getElementById('floatingVideoContainer').style.display='none';
+  ]
 }
 </script>
 
+<!-- 统计：保留百度统计与 51.LA；已移除 AdSense。
+     如需 Google Analytics，取消下面注释，并把两处 ID 统一为同一个 GA4 属性。 -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R6NVH9WSW4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R6NVH9WSW4');
+</script>
+-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?38b39f32899f019fc768821d01582475";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+<script>if (window.LA) { LA.init({id:"3P7Nu0czNckLF8N6",ck:"3P7Nu0czNckLF8N6"}); }</script>
 
+<style>
+:root{
+  --bg:#f6f8fb;
+  --surface:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --brand:#0b5cad;
+  --brand-dark:#084a8c;
+  --brand-soft:#e8f1fb;
+  --accent:#0f766e;
+  --border:#e2e8f0;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --max:1120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC","Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em;letter-spacing:-.01em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--brand);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100}
+.skip:focus{left:0}
+
+/* 顶部导航 */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;gap:24px;min-height:64px}
+.brand{font-weight:800;font-size:1.15rem;letter-spacing:.06em;color:var(--text)}
+.brand span{color:var(--brand)}
+.brand:hover{text-decoration:none}
+.nav{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
+.nav a{color:var(--muted);font-size:.95rem}
+.nav a:hover{color:var(--brand);text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:10px;padding:11px 18px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{background:var(--brand-dark);border-color:var(--brand-dark);text-decoration:none;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--brand);border-color:#b9cfe6}
+.btn-ghost:hover{background:var(--brand-soft);color:var(--brand-dark)}
+.btn-sm{padding:8px 14px;font-size:.875rem}
+.btn-block{width:100%}
+
+/* 首屏 */
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{margin:0 0 12px;color:var(--brand);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(2rem,4.2vw,3.1rem);margin-bottom:18px}
+.lead{font-size:1.08rem;color:var(--muted);max-width:60ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 18px}
+.hero-points{display:flex;gap:18px;flex-wrap:wrap;list-style:none;padding:0;margin:0;color:var(--muted);font-size:.9rem}
+.hero-points li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:6px}
+.hero-media{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.hero-media img{border-radius:10px;width:100%}
+.hero-media figcaption{margin-top:10px;color:var(--muted);font-size:.82rem;text-align:center}
+
+/* 数据条 */
+.stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:22px 0}
+.stats-grid div{display:flex;flex-direction:column;gap:2px;text-align:center}
+.stats-grid strong{font-size:1.35rem;color:var(--brand)}
+.stats-grid span{color:var(--muted);font-size:.85rem}
+
+/* 区块 */
+.section{padding:64px 0}
+section[id]{scroll-margin-top:84px}
+.section-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-head{max-width:760px;margin-bottom:32px}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+.group-title{margin:34px 0 16px;font-size:1.05rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+/* 卡片 */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.cards-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cards-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-media{aspect-ratio:16/10;background:#eef2f7;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.card-media video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.card-body{display:flex;flex-direction:column;gap:10px;padding:18px}
+.card-body h4{margin:0;font-size:1.06rem}
+.card-body p{margin:0;color:var(--muted);font-size:.92rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:600}
+.meta{color:#64748b;font-size:.8rem}
+.card .btn{margin-top:auto}
+.note{color:#64748b;font-size:.85rem;margin-top:18px}
+
+/* 视频 */
+.video-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+.video-frame{background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.video-frame video{width:100%;display:block;aspect-ratio:16/10}
+
+/* 特性 / 场景 */
+.feature,.scenario{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand-dark);font-weight:800;font-size:.8rem;margin-bottom:12px}
+.feature h3,.scenario h3{font-size:1.02rem;margin-bottom:6px}
+.feature p,.scenario p{margin:0;color:var(--muted);font-size:.9rem}
+
+/* 对比表 */
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.92rem;vertical-align:top}
+th{background:#f1f5f9;color:#334155;font-weight:700}
+tr:last-child td{border-bottom:0}
+.center{text-align:center;margin-top:24px}
+
+/* 文档卡片 */
+.link-card{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;color:var(--text);transition:transform .2s,box-shadow .2s}
+.link-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);text-decoration:none}
+.link-card h3{font-size:1.02rem;margin:0}
+.link-card p{margin:0;color:var(--muted);font-size:.9rem}
+.link-card span{color:var(--brand);font-weight:600;font-size:.88rem;margin-top:auto}
+
+/* 关于 */
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start}
+.about-list{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.about-list li{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.about-list strong{display:block;font-size:.95rem}
+.about-list span{color:var(--muted);font-size:.86rem}
+
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 18px}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--brand);font-weight:700}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0 0 16px;color:var(--muted);font-size:.92rem}
+
+/* 联系 */
+.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start}
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 14px}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.contact-card h3{margin-bottom:14px}
+.contact-card dl{margin:0;display:grid;gap:12px}
+.contact-card dt{color:#64748b;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.contact-card dd{margin:2px 0 0;font-size:.95rem}
+
+/* 页脚 */
+.site-footer{background:#0f172a;color:#cbd5e1;padding:48px 0 24px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.brand-light{color:#fff}
+.brand-light span{color:#7dd3fc}
+.site-footer h4{color:#fff;font-size:.9rem;margin-bottom:10px}
+.site-footer a,.site-footer .link-btn{display:block;color:#cbd5e1;font-size:.9rem;margin-bottom:6px;background:none;border:0;padding:0;text-align:left;cursor:pointer;font-family:inherit}
+.site-footer a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #1e293b;margin-top:32px;padding-top:18px;display:grid;gap:6px}
+.footer-bottom p{margin:0;font-size:.78rem;color:#94a3b8}
+.trademark{color:#64748b}
+
+/* 弹窗 */
+dialog{border:0;border-radius:16px;padding:24px;max-width:min(92vw,360px);box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center}
+dialog::backdrop{background:rgba(15,23,42,.6)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.dialog-head h3{margin:0;font-size:1.05rem}
+.dialog-close{border:0;background:#f1f5f9;color:#334155;width:32px;height:32px;border-radius:50%;font-size:1.2rem;line-height:1;cursor:pointer}
+dialog img{margin:0 auto 10px;border:1px solid var(--border);border-radius:8px}
+dialog p{margin:0;color:var(--muted);font-size:.9rem}
+:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+
+/* 响应式 */
+@media (max-width:900px){
+  .hero-grid,.video-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .hero{padding-top:40px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  section[id]{scroll-margin-top:128px}
+  .nav{order:3;width:100%;margin-left:0;gap:14px;padding-bottom:10px}
+  .header-inner{flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+}
+@media (max-width:640px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .section{padding:48px 0}
+  .hero-actions .btn{flex:1 1 auto}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="MWWZTech 首页">MWWZ<span>TECH</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#products">产品</a>
+      <a href="#why">方案</a>
+      <a href="#compare">对比</a>
+      <a href="#docs">文档</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+    </nav>
+    <a class="btn btn-sm" href="#contact">获取试用</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- 首屏 -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">工业视觉算法 · HALCON 替代方案</p>
+        <h1>用轻量算法库，替代 HALCON 做工业视觉检测</h1>
+        <p class="lead">形状模板匹配、2D 测量、区域形态学，支持 MFC / QT，Windows 单机部署，按项目授权。</p>
+        <div class="hero-actions">
+          <a class="btn" href="#products">下载试用</a>
+          <a class="btn btn-ghost" href="#contact">预约演示</a>
+        </div>
+        <ul class="hero-points">
+          <li>演示程序可直接下载</li>
+          <li>中文技术支持</li>
+          <li>按项目 / 模块授权</li>
+        </ul>
+      </div>
+      <figure class="hero-media">
+        <a href="assets/mwwz_vs_halcon.png" target="_blank" rel="noopener">
+          <img src="assets/mwwz_vs_halcon.png" alt="MWWZ 与 HALCON 的能力对比示意图" fetchpriority="high">
+        </a>
+        <figcaption>MWWZ 与 HALCON 的能力对比（点击查看大图）</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 数据条 -->
+  <section class="stats" aria-label="核心能力概览">
+    <div class="wrap stats-grid">
+      <div><strong>3</strong><span>核心算法模块</span></div>
+      <div><strong>MFC / QT</strong><span>双版本示例</span></div>
+      <div><strong>x86 / x64</strong><span>Windows 部署</span></div>
+      <div><strong>中文</strong><span>技术支持</span></div>
+    </div>
+  </section>
+
+  <!-- 产品 -->
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">产品与演示</p>
+        <h2>先下载演示，再决定是否授权</h2>
+        <p class="lead">以下演示程序覆盖模板匹配、2D 测量、形态学与专用应用。具体功能、平台与依赖以下载包内说明为准。</p>
+      </div>
+
+      <h3 class="group-title">算法模块</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_mfc_x86.png" alt="形状模板匹配 MFC 演示界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">算法模块</span><span class="tag">MFC</span><span class="tag">x86</span></div>
+            <h4>形状模板匹配（MFC）</h4>
+            <p>基于形状的模板匹配，适合定位、对位、有无检测等场景。提供 MFC 演示程序，便于快速评估。</p>
+            <p class="meta">版本 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_mfc_x86_2026.11.18.zip" data-download="demo_mfc_x86">下载演示</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_qt_x64.png" alt="形状模板匹配 QT 演示界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">算法模块</span><span class="tag">QT</span><span class="tag">x64</span></div>
+            <h4>形状模板匹配（QT）</h4>
+            <p>同一套形状匹配能力的 QT 版本，适合 QT 界面项目集成与评估。</p>
+            <p class="meta">版本 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_qt_x64_2026.11.18.zip" data-download="demo_qt_x64">下载演示</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_meas.png" alt="2D 测量与区域形态学演示界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">算法模块</span><span class="tag">MFC</span></div>
+            <h4>2D 测量与区域形态学（MFC）</h4>
+            <p>2D 测量与区域形态学算子，覆盖尺寸测量、区域处理等常用场景。</p>
+            <p class="meta">版本 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_meas_2026.11.18.zip" data-download="demo_meas">下载演示</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_cam.png" alt="接触角测量演示界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">应用演示</span><span class="tag">MFC</span><span class="tag">x64</span></div>
+            <h4>接触角测量（MFC）</h4>
+            <p>面向液滴 / 接触角测量的专用演示程序。</p>
+            <p class="meta">版本 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_cam_x64_2026.11.18.zip" data-download="demo_cam_x64">下载演示</a>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="group-title">工具与应用</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/ellipse_divide.png" alt="椭圆等分工具界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">工具</span><span class="tag">准备中</span></div>
+            <h4>椭圆等分</h4>
+            <p>椭圆等分工具，演示版准备中。</p>
+            <p class="meta">暂未开放下载</p>
+            <a class="btn btn-sm btn-block btn-ghost" href="#contact">预约演示</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/mask_editor.png" alt="MaskEditor 掩膜编辑工具界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">工具</span><span class="tag">RAR</span></div>
+            <h4>MaskEditor</h4>
+            <p>掩膜（Mask）编辑工具，用于标注与后处理。</p>
+            <p class="meta">RAR 压缩包</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/MaskEditor2.0.rar" data-download="MaskEditor2.0">下载工具</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/landrop_me.png" alt="LANDropMe 工具界面" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">工具</span><span class="tag">RAR</span></div>
+            <h4>LANDropMe</h4>
+            <p>实用小工具，具体功能与使用说明见下载包。</p>
+            <p class="meta">RAR 压缩包</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/LANDropMe.rar" data-download="LANDropMe">下载工具</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <video controls preload="none" playsinline aria-label="Bin Packing 排样演示视频">
+              <source src="assets/cho_0.mp4" type="video/mp4">
+              您的浏览器不支持视频播放。
+            </video>
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">应用演示</span><span class="tag">视频</span></div>
+            <h4>Bin Packing</h4>
+            <p>装箱 / 排样算法演示。</p>
+            <p class="meta">视频约 13 MB</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <video controls preload="none" playsinline aria-label="Laser Cutting 激光切割演示视频">
+              <source src="assets/cho_1.mp4" type="video/mp4">
+              您的浏览器不支持视频播放。
+            </video>
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">应用演示</span><span class="tag">视频</span></div>
+            <h4>Laser Cutting</h4>
+            <p>激光切割路径演示。</p>
+            <p class="meta">视频约 12 MB</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="note">演示程序仅供评估，正式使用需获得授权；RAR 包请使用 7-Zip / WinRAR 解压；视频文件较大，建议在 Wi-Fi 下观看。</p>
+    </div>
+  </section>
+
+  <!-- 视频 -->
+  <section class="section section-alt" id="demo-video">
+    <div class="wrap video-grid">
+      <div>
+        <p class="eyebrow">视频演示</p>
+        <h2>形状匹配的实际运行效果</h2>
+        <p class="lead">下面这段视频演示形状模板匹配的运行过程。视频约 26 MB，已设置为点击后加载，不会在打开首页时自动下载。</p>
+        <p class="note">建议在 Wi-Fi 环境下观看。</p>
+      </div>
+      <div class="video-frame">
+        <video controls preload="none" playsinline aria-label="形状模板匹配演示视频">
+          <source src="assets/shape_match2.mp4" type="video/mp4">
+          您的浏览器不支持视频播放。
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- 为什么 -->
+  <section class="section" id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">为什么选择 MWWZTech</p>
+        <h2>把“能用”做成“好集成、可维护”</h2>
+        <p class="lead">不追求大而全，专注工业视觉里最常用的匹配、测量与形态学能力。</p>
+      </div>
+      <div class="cards cards-4">
+        <article class="feature">
+          <span class="num">01</span>
+          <h3>算法自研</h3>
+          <p>形状模板匹配、2D 测量、区域形态学等核心算法自研，持续迭代。</p>
+        </article>
+        <article class="feature">
+          <span class="num">02</span>
+          <h3>轻量集成</h3>
+          <p>提供 MFC / QT 示例，Windows 单机部署，便于嵌入现有项目。</p>
+        </article>
+        <article class="feature">
+          <span class="num">03</span>
+          <h3>成本可控</h3>
+          <p>按项目 / 模块授权，避免整套商业视觉库的高额授权费。</p>
+        </article>
+        <article class="feature">
+          <span class="num">04</span>
+          <h3>中文支持</h3>
+          <p>直接对接研发，中文文档与技术博客，沟通成本低。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 对比 -->
+  <section class="section section-alt" id="compare">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">选型对比</p>
+        <h2>替代 HALCON，先看这几个维度</h2>
+        <p class="lead">如果你正在评估 HALCON 的替代方案，建议从授权、部署、二次开发、支持和成本五个方面对比。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>维度</th><th>MWWZTech</th><th>传统商业视觉库（如 HALCON）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>授权方式</td><td>按项目 / 模块授权</td><td>通常按开发版 + 运行版 / 模块授权</td></tr>
+            <tr><td>部署方式</td><td>Windows 单机，MFC / QT 集成</td><td>安装运行时，按授权方式部署</td></tr>
+            <tr><td>二次开发</td><td>C++ 接口 + MFC / QT 示例</td><td>HDevelop + 自有 API 体系</td></tr>
+            <tr><td>技术支持</td><td>中文，直接对接研发</td><td>厂商 / 代理技术支持体系</td></tr>
+            <tr><td>适用场景</td><td>定位、测量、形态学等固定任务</td><td>功能覆盖广，生态成熟</td></tr>
+            <tr><td>成本</td><td>按项目可控</td><td>通常较高，按模块计费</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">表中为一般性对比，具体以实际版本与商务条款为准。HALCON 是 MVTec Software GmbH 的注册商标，本站与 MVTec 无关联。</p>
+      <div class="center"><a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20%E8%AF%A6%E7%BB%86%E5%AF%B9%E6%AF%94%E8%B5%84%E6%96%99">获取详细对比资料</a></div>
+    </div>
+  </section>
+
+  <!-- 场景 -->
+  <section class="section" id="scenarios">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">应用场景</p>
+        <h2>这些任务，用轻量算法就能覆盖</h2>
+      </div>
+      <div class="cards cards-4">
+        <article class="scenario">
+          <span class="num">01</span>
+          <h3>定位与对位</h3>
+          <p>形状模板匹配用于工件定位、角度校正、有无检测。</p>
+        </article>
+        <article class="scenario">
+          <span class="num">02</span>
+          <h3>尺寸测量</h3>
+          <p>2D 测量用于长度、角度、圆、直线等尺寸检测。</p>
+        </article>
+        <article class="scenario">
+          <span class="num">03</span>
+          <h3>区域处理</h3>
+          <p>区域形态学用于去噪、分割、缺陷区域处理。</p>
+        </article>
+        <article class="scenario">
+          <span class="num">04</span>
+          <h3>接触角 / 液滴</h3>
+          <p>接触角测量用于润湿性、表面处理效果评估。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文档 -->
+  <section class="section section-alt" id="docs">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">文档与技术文章</p>
+        <h2>把实现细节写下来</h2>
+        <p class="lead">开发笔记记录了算法实现、HALCON 替代实践与工程问题处理。</p>
+      </div>
+      <div class="cards cards-3">
+        <a class="link-card" href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">
+          <h3>开发笔记</h3>
+          <p>算法实现细节、HALCON 替代实践与工程笔记。</p>
+          <span>访问博客 →</span>
+        </a>
+        <a class="link-card" href="https://www.mwwztech.xyz/2026/10/15/HALCON-Perspective-Deformable-Matching-%E5%AE%9E%E7%8E%B0.html" target="_blank" rel="noopener">
+          <h3>HALCON Perspective Deformable Matching 实现</h3>
+          <p>透视形变匹配的实现思路。</p>
+          <span>阅读文章 →</span>
+        </a>
+        <a class="link-card" href="https://www.mwwztech.xyz/all-posts.html" target="_blank" rel="noopener">
+          <h3>全部文章</h3>
+          <p>查看更多技术文章与更新。</p>
+          <span>查看全部 →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于 -->
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">关于 MWWZTech</p>
+        <h2>专注工业视觉算法，做可落地的替代方案</h2>
+        <p>MWWZTech 专注于工业机器视觉算法研发，提供 HALCON 的轻量替代方案。核心能力包括基于形状的模板匹配、2D 测量、区域形态学与专用测量应用。</p>
+        <p>目前已提供 MFC / QT 演示程序，支持按项目授权与定制合作。我们更关注算法在真实产线上的稳定性、集成成本与可维护性。</p>
+      </div>
+      <ul class="about-list">
+        <li><strong>自研算法</strong><span>核心算法自主实现，持续迭代。</span></li>
+        <li><strong>可先评估</strong><span>演示程序直接下载，先验证再合作。</span></li>
+        <li><strong>中文支持</strong><span>直接对接研发，沟通成本低。</span></li>
+        <li><strong>按项目授权</strong><span>按实际模块与规模授权。</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">常见问题</p>
+        <h2>合作前，你可能会问</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>MWWZTech 能直接替换 HALCON 吗？</summary>
+          <p>不是 API 级直接替换，而是提供同类算法能力。已有项目需要按接口、算子和场景做迁移评估。</p>
+        </details>
+        <details>
+          <summary>支持哪些平台和开发语言？</summary>
+          <p>目前演示以 Windows x86 / x64 为主，提供 MFC / QT 示例；其他平台与语言可以沟通。</p>
+        </details>
+        <details>
+          <summary>如何授权和收费？</summary>
+          <p>按项目 / 模块授权。具体范围与报价，请提供应用场景、图像尺寸和节拍要求后沟通。</p>
+        </details>
+        <details>
+          <summary>演示程序有时间限制吗？</summary>
+          <p>演示程序用于评估，正式使用需获得授权；具体限制以演示包内说明为准。</p>
+        </details>
+        <details>
+          <summary>是否提供源码或定制？</summary>
+          <p>视合作方式而定，可沟通定制开发与技术支持。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section class="section" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">联系与试用</p>
+        <h2>告诉我们你的场景，获取合适的方案</h2>
+        <p>请尽量说明：应用场景（定位 / 测量 / 缺陷 / 接触角）、图像尺寸、节拍要求、开发环境（MFC / QT / C++）。我们会据此给出模块建议与授权方式。</p>
+        <div class="contact-actions">
+          <a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2">发送邮件</a>
+          <a class="btn btn-ghost" href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">提交反馈</a>
+          <a class="btn btn-ghost" href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>微信公众号</a>
+        </div>
+        <p class="note">邮箱：mwwz@qq.com · 也可先<a href="/register.html">注册账号</a>，用于软件授权审核。</p>
+      </div>
+      <div class="contact-card">
+        <h3>快速联系</h3>
+        <dl>
+          <div><dt>邮箱</dt><dd><a href="mailto:mwwz@qq.com">mwwz@qq.com</a></dd></div>
+          <div><dt>反馈</dt><dd><a href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">在线提交</a></dd></div>
+          <div><dt>注册</dt><dd><a href="/register.html">注册账号</a></dd></div>
+          <div><dt>博客</dt><dd><a href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">开发笔记</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand brand-light" href="#top">MWWZ<span>TECH</span></a>
+      <p>工业视觉算法方案，HALCON 轻量替代。</p>
+    </div>
+    <div>
+      <h4>产品</h4>
+      <a href="#products">模板匹配</a>
+      <a href="#products">2D 测量</a>
+      <a href="#products">工具与应用</a>
+    </div>
+    <div>
+      <h4>资源</h4>
+      <a href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">开发笔记</a>
+      <a href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">反馈支持</a>
+      <a href="/register.html">注册账号</a>
+    </div>
+    <div>
+      <h4>联系</h4>
+      <a href="mailto:mwwz@qq.com">mwwz@qq.com</a>
+      <a href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>微信公众号</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 MWWZTech. 保留所有权利。</p>
+    <p>本站使用百度统计与 51.LA 统计访问量；注册与反馈信息仅用于账号审核和问题处理。</p>
+    <p class="trademark">HALCON 是 MVTec Software GmbH 的注册商标，本站与 MVTec 无关联。</p>
+  </div>
+</footer>
+
+<!-- 微信公众号弹窗 -->
+<dialog id="wechatDialog" aria-labelledby="wechatTitle">
+  <form method="dialog" class="dialog-head">
+    <h3 id="wechatTitle">微信公众号</h3>
+    <button class="dialog-close" value="close" aria-label="关闭">×</button>
+  </form>
+  <img src="assets/woa.jpg" alt="MWWZTech 微信公众号二维码" width="220" height="220" loading="lazy">
+  <p>打开微信扫一扫，关注 MWWZTech</p>
+</dialog>
+
+<script>
+(function () {
+  var dialog = document.getElementById('wechatDialog');
+  if (dialog) {
+    document.querySelectorAll('[data-open-wechat]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (typeof dialog.showModal !== 'function') return; // 不支持时保留图片链接
+        event.preventDefault();
+        if (!dialog.open) dialog.showModal();
+      });
+    });
+    dialog.addEventListener('click', function (event) {
+      var rect = dialog.getBoundingClientRect();
+      var inside = event.clientX >= rect.left && event.clientX <= rect.right &&
+                   event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) dialog.close();
+    });
+  }
+
+  document.querySelectorAll('[data-download]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var name = link.getAttribute('data-download');
+      if (window._hmt) window._hmt.push(['_trackEvent', 'download', name]);
+      if (window.gtag) window.gtag('event', 'download', { file_name: name });
+    });
+  });
+})();
+</script>
 </body>
 </html>
