@@ -189,6 +189,17 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
   .hero-actions .btn{flex:1 1 auto}
   .contact-card-body{flex-direction:column;align-items:flex-start}
   .footer-grid{grid-template-columns:1fr}
+  .nav{gap:8px}
+  .nav a{font-size:.82rem}
+  .table-wrap{overflow:visible;border:0;background:transparent;border-radius:0}
+  .table-wrap table{min-width:0;display:block}
+  .table-wrap thead{display:none}
+  .table-wrap tbody{display:grid;gap:12px}
+  .table-wrap tr{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .table-wrap td{display:block;border:0;padding:6px 0;font-size:.9rem}
+  .table-wrap td::before{content:attr(data-label);display:block;color:#64748b;font-size:.75rem;font-weight:600;margin-bottom:2px}
+  .table-wrap td:first-child{font-size:1rem;font-weight:700;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
+  .table-wrap td:first-child::before{content:none}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
