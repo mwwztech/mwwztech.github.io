@@ -187,7 +187,9 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
   .stats-grid{grid-template-columns:1fr 1fr}
   .section{padding:48px 0}
   .hero-actions .btn{flex:1 1 auto}
-  .contact-card-body{flex-direction:column;align-items:flex-start}
+  .contact-card-body{gap:14px;align-items:center}
+  .contact-card-body dl{min-width:0}
+  .wechat-figure img{width:clamp(110px,34vw,130px);height:auto}
   .footer-grid{grid-template-columns:1fr}
   .nav{gap:8px}
   .nav a{font-size:.82rem}

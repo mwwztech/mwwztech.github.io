@@ -486,7 +486,7 @@ var _hmt = _hmt || [];
         <div class="contact-actions">
           <a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20Solution%20Inquiry">Send Email</a>
           <a class="btn btn-ghost" href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">Submit Feedback</a>
-          <a class="btn btn-ghost" href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>WeChat</a>
+          <a class="btn btn-ghost" href="assets/wechat.png" target="_blank" rel="noopener" data-open-wechat>WeChat</a>
         </div>
         <p class="note">Email: mwwz@qq.com · You can also <a href="/register.html">register an account</a> for software license review.</p>
       </div>
@@ -500,7 +500,7 @@ var _hmt = _hmt || [];
             <div><dt>Blog</dt><dd><a href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">Development notes</a></dd></div>
           </dl>
           <figure class="wechat-figure">
-            <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="170" height="170" loading="lazy" decoding="async">
+            <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="170" height="170" loading="eager" decoding="async">
             <figcaption>Scan to add us on WeChat</figcaption>
           </figure>
         </div>
@@ -530,7 +530,7 @@ var _hmt = _hmt || [];
     <div>
       <h4>Contact</h4>
       <a href="mailto:mwwz@qq.com">mwwz@qq.com</a>
-      <a href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>WeChat</a>
+      <a href="assets/woa.jpg" target="_blank" rel="noopener" data-open-official>Official Account</a>
     </div>
   </div>
   <div class="wrap footer-bottom">
@@ -545,28 +545,40 @@ var _hmt = _hmt || [];
     <h3 id="wechatTitle">WeChat</h3>
     <button class="dialog-close" value="close" aria-label="Close">×</button>
   </form>
+  <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="220" height="220" loading="lazy">
+  <p>Scan to add us on WeChat</p>
+</dialog>
+
+<dialog id="officialDialog" aria-labelledby="officialTitle">
+  <form method="dialog" class="dialog-head">
+    <h3 id="officialTitle">WeChat Official Account</h3>
+    <button class="dialog-close" value="close" aria-label="Close">×</button>
+  </form>
   <img src="assets/woa.jpg" alt="MWWZTech WeChat official account QR code" width="220" height="220" loading="lazy">
   <p>Open WeChat and scan to follow MWWZTech</p>
 </dialog>
 
 <script>
 (function () {
-  var dialog = document.getElementById('wechatDialog');
-  if (dialog) {
-    document.querySelectorAll('[data-open-wechat]').forEach(function (link) {
+  function bindDialog(selector, dlg) {
+    if (!dlg) return;
+    document.querySelectorAll(selector).forEach(function (link) {
       link.addEventListener('click', function (event) {
-        if (typeof dialog.showModal !== 'function') return; // keep the image link as fallback
+        if (typeof dlg.showModal !== 'function') return; // keep the image link as fallback
         event.preventDefault();
-        if (!dialog.open) dialog.showModal();
+        if (!dlg.open) dlg.showModal();
       });
     });
-    dialog.addEventListener('click', function (event) {
-      var rect = dialog.getBoundingClientRect();
+    dlg.addEventListener('click', function (event) {
+      var rect = dlg.getBoundingClientRect();
       var inside = event.clientX >= rect.left && event.clientX <= rect.right &&
                    event.clientY >= rect.top && event.clientY <= rect.bottom;
-      if (!inside) dialog.close();
+      if (!inside) dlg.close();
     });
   }
+
+  bindDialog('[data-open-wechat]', document.getElementById('wechatDialog'));
+  bindDialog('[data-open-official]', document.getElementById('officialDialog'));
 
   document.querySelectorAll('[data-download]').forEach(function (link) {
     link.addEventListener('click', function () {
