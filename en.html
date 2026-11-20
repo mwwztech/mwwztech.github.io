@@ -540,6 +540,44 @@ var _hmt = _hmt || [];
   </div>
 </footer>
 
+<!-- Online contact -->
+<button class="contact-fab" id="contactFab" type="button" aria-haspopup="dialog" aria-controls="contactDialog">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-3.2-.6L3 21l1.7-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg>
+  <span>Contact</span>
+</button>
+
+<dialog id="contactDialog" aria-labelledby="contactTitle">
+  <div class="contact-panel-head">
+    <h3 id="contactTitle">Contact Us</h3>
+    <button class="dialog-close" type="button" data-close-contact aria-label="Close">×</button>
+  </div>
+  <div class="contact-panel-body">
+    <p class="contact-intro">Choose a channel, or leave a message.</p>
+    <div class="contact-channels">
+      <div class="contact-channel wechat">
+        <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="110" height="110" loading="lazy" decoding="async">
+        <span>Scan to add us</span>
+      </div>
+      <a class="contact-channel" href="https://wpa.qq.com/msgrd?v=3&amp;uin=66557370&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">QQ chat</a>
+      <a class="contact-channel" href="mailto:mwwz@qq.com">Email us</a>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <label for="cName">Name</label>
+      <input id="cName" name="name" type="text" maxlength="50" required autocomplete="name">
+      <label for="cEmail">Email</label>
+      <input id="cEmail" name="email" type="email" maxlength="120" required autocomplete="email">
+      <label for="cCompany">Company (optional)</label>
+      <input id="cCompany" name="company" type="text" maxlength="100" autocomplete="organization">
+      <label for="cMessage">How can we help?</label>
+      <textarea id="cMessage" name="message" maxlength="2000" required placeholder="Application, image size, cycle time, target platform..."></textarea>
+      <div class="contact-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn" type="submit" id="contactSubmit">Send</button>
+      <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+      <p class="contact-privacy">Your details are used only to respond to your enquiry.</p>
+    </form>
+  </div>
+</dialog>
+
 <dialog id="wechatDialog" aria-labelledby="wechatTitle">
   <form method="dialog" class="dialog-head">
     <h3 id="wechatTitle">WeChat</h3>
@@ -589,5 +627,6 @@ var _hmt = _hmt || [];
   });
 })();
 </script>
+<script src="assets/contact.js" defer></script>
 </body>
 </html>

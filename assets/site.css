@@ -174,6 +174,30 @@ dialog img{margin:0 auto 10px;border:1px solid var(--border);border-radius:8px}
 dialog p{margin:0;color:var(--muted);font-size:.9rem}
 :focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
 
+/* 在线咨询 */
+.contact-fab{position:fixed;right:20px;bottom:20px;z-index:90;display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:999px;padding:12px 18px;font:inherit;font-weight:600;font-size:.9rem;box-shadow:0 10px 25px rgba(11,92,173,.35);cursor:pointer;transition:background .2s,transform .2s}
+.contact-fab:hover{background:var(--brand-dark);transform:translateY(-1px)}
+.contact-fab svg{width:18px;height:18px;flex:0 0 auto}
+#contactDialog{max-width:min(92vw,440px);padding:0;text-align:left;max-height:90vh;overflow:auto}
+.contact-panel-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;background:var(--surface);border-bottom:1px solid var(--border)}
+.contact-panel-head h3{margin:0;font-size:1.05rem}
+.contact-panel-body{padding:18px 20px 20px}
+.contact-intro{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+.contact-channels{display:grid;grid-template-columns:130px 1fr;gap:10px;margin-bottom:18px}
+.contact-channel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid var(--border);border-radius:12px;padding:10px;color:var(--text);font-size:.85rem;font-weight:600;background:var(--surface);text-align:center}
+.contact-channel:hover{border-color:#b9cfe6;background:var(--brand-soft);text-decoration:none}
+.contact-channel.wechat{grid-row:span 2}
+.contact-channel img{width:110px;height:110px;object-fit:contain;border-radius:8px;background:#fff}
+.contact-channel.wechat span{font-size:.78rem;color:var(--muted);font-weight:500}
+.contact-form{display:grid;gap:8px}
+.contact-form label{font-size:.78rem;color:#64748b;font-weight:600;margin-top:2px}
+.contact-form input,.contact-form textarea{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;font-size:.9rem;color:var(--text);background:#fff}
+.contact-form textarea{min-height:88px;resize:vertical}
+.contact-form .btn{width:100%;margin-top:6px}
+.contact-status{min-height:1.2em;margin:4px 0 0;color:var(--muted);font-size:.82rem}
+.contact-privacy{margin:0;color:#94a3b8;font-size:.75rem}
+.contact-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
 /* 响应式 */
 @media (max-width:900px){
   .hero-grid,.video-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
@@ -202,6 +226,10 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
   .table-wrap td::before{content:attr(data-label);display:block;color:#64748b;font-size:.75rem;font-weight:600;margin-bottom:2px}
   .table-wrap td:first-child{font-size:1rem;font-weight:700;padding:0 0 8px;margin-bottom:4px;border-bottom:1px solid var(--border)}
   .table-wrap td:first-child::before{content:none}
+  .contact-fab{right:16px;bottom:16px;padding:11px 15px;font-size:.85rem}
+  #contactDialog{max-width:94vw}
+  .contact-panel-head{padding:14px 16px}
+  .contact-panel-body{padding:16px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
