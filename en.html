@@ -552,29 +552,22 @@ var _hmt = _hmt || [];
     <button class="dialog-close" type="button" data-close-contact aria-label="Close">×</button>
   </div>
   <div class="contact-panel-body">
-    <p class="contact-intro">Choose a channel, or leave a message.</p>
+    <p class="contact-intro">Choose a channel to get in touch.</p>
     <div class="contact-channels">
       <div class="contact-channel wechat">
         <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="110" height="110" loading="lazy" decoding="async">
         <span>Scan to add us</span>
       </div>
-      <a class="contact-channel" href="https://wpa.qq.com/msgrd?v=3&amp;uin=66557370&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">QQ chat</a>
-      <a class="contact-channel" href="mailto:mwwz@qq.com">Email us</a>
+      <a class="contact-channel" href="https://wpa.qq.com/msgrd?v=3&amp;uin=66557370&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">
+        <strong>QQ chat</strong>
+        <span class="channel-sub">66557370</span>
+      </a>
+      <a class="contact-channel" href="mailto:mwwz@qq.com">
+        <strong>Email us</strong>
+        <span class="channel-sub">mwwz@qq.com</span>
+      </a>
     </div>
-    <form class="contact-form" id="contactForm">
-      <label for="cName">Name</label>
-      <input id="cName" name="name" type="text" maxlength="50" required autocomplete="name">
-      <label for="cEmail">Email</label>
-      <input id="cEmail" name="email" type="email" maxlength="120" required autocomplete="email">
-      <label for="cCompany">Company (optional)</label>
-      <input id="cCompany" name="company" type="text" maxlength="100" autocomplete="organization">
-      <label for="cMessage">How can we help?</label>
-      <textarea id="cMessage" name="message" maxlength="2000" required placeholder="Application, image size, cycle time, target platform..."></textarea>
-      <div class="contact-hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-      <button class="btn" type="submit" id="contactSubmit">Send</button>
-      <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
-      <p class="contact-privacy">Your details are used only to respond to your enquiry.</p>
-    </form>
+    <p class="contact-note">QQ: 66557370. If we are not friends yet, add 66557370 in QQ first (or open the <a href="https://user.qzone.qq.com/66557370" target="_blank" rel="noopener">QQ profile</a>), then start the chat.</p>
   </div>
 </dialog>
 
