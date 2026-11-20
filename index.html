@@ -156,13 +156,14 @@ section[id]{scroll-margin-top:84px}
 .card-media{aspect-ratio:16/10;background:#eef2f7;overflow:hidden}
 .card-media img{width:100%;height:100%;object-fit:cover;display:block}
 .card-media video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
-.card-body{display:flex;flex-direction:column;gap:10px;padding:18px}
+.card-body{display:flex;flex-direction:column;gap:10px;padding:18px;flex:1}
 .card-body h4{margin:0;font-size:1.06rem}
 .card-body p{margin:0;color:var(--muted);font-size:.92rem}
 .tags{display:flex;gap:6px;flex-wrap:wrap}
 .tag{background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:600}
 .meta{color:#64748b;font-size:.8rem}
-.card .btn{margin-top:auto}
+.card-body .meta{margin-top:auto}
+.card .btn{margin-top:0}
 .note{color:#64748b;font-size:.85rem;margin-top:18px}
 
 /* 视频 */
@@ -320,7 +321,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <div><strong>3</strong><span>核心算法模块</span></div>
       <div><strong>3</strong><span>开发语言：C++ / C# / Python</span></div>
       <div><strong>4</strong><span>操作系统：Windows / Linux / Ubuntu / Android</span></div>
-      <div><strong>3</strong><span>CPU 架构：Win32 / x86_64 / aarch64</span></div>
+      <div><strong>3</strong><span>CPU 架构：x86 / x86_64 / aarch64</span></div>
     </div>
   </section>
 
@@ -501,7 +502,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         </article>
         <article class="platform-card">
           <h3>CPU 架构</h3>
-          <div class="badges"><span>Win32</span><span>x86_64</span><span>aarch64</span></div>
+          <div class="badges"><span>x86</span><span>x86_64</span><span>aarch64</span></div>
         </article>
       </div>
       <p class="note">具体模块在不同平台/架构上的可用性，以实际版本与沟通结果为准。</p>
@@ -661,7 +662,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         </details>
         <details>
           <summary>支持哪些平台和开发语言？</summary>
-          <p>支持 C++、C#、Python；操作系统支持 Windows、Linux、Ubuntu、Android；CPU 架构支持 Win32、x86_64、aarch64。具体模块在不同平台上的可用性，以实际版本和沟通结果为准。</p>
+          <p>支持 C++、C#、Python；操作系统支持 Windows、Linux、Ubuntu、Android；CPU 架构支持 x86、x86_64、aarch64。具体模块在不同平台上的可用性，以实际版本和沟通结果为准。</p>
         </details>
         <details>
           <summary>如何授权和收费？</summary>
@@ -685,7 +686,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <div>
         <p class="eyebrow">联系与试用</p>
         <h2>告诉我们你的场景，获取合适的方案</h2>
-        <p>请尽量说明：应用场景（定位 / 测量 / 缺陷 / 接触角）、图像尺寸、节拍要求、目标平台（Windows / Linux / Ubuntu / Android）、开发语言（C++ / C# / Python）、CPU 架构（Win32 / x86_64 / aarch64）。我们会据此给出模块建议与授权方式。</p>
+        <p>请尽量说明：应用场景（定位 / 测量 / 缺陷 / 接触角）、图像尺寸、节拍要求、目标平台（Windows / Linux / Ubuntu / Android）、开发语言（C++ / C# / Python）、CPU 架构（x86 / x86_64 / aarch64）。我们会据此给出模块建议与授权方式。</p>
         <div class="contact-actions">
           <a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2">发送邮件</a>
           <a class="btn btn-ghost" href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">提交反馈</a>
