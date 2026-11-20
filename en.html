@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MWWZTech | HALCON Alternative: Shape Matching, 2D Metrology and Morphology</title>
+<meta name="description" content="MWWZTech provides lightweight industrial vision algorithms as a HALCON alternative: shape-based template matching, 2D metrology and region morphology, with C/C++/C#/Python on Windows/Linux/Ubuntu/Android.">
+<meta name="keywords" content="HALCON alternative,machine vision,shape matching,2D metrology,region morphology,industrial vision,C,C++,C#,Python,Windows,Linux,Ubuntu,Android,MWWZTech">
+<meta name="author" content="MWWZTech">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0b5cad">
+<link rel="canonical" href="https://www.mwwztech.com/en.html">
+<link rel="alternate" hreflang="zh-CN" href="https://www.mwwztech.com/">
+<link rel="alternate" hreflang="en" href="https://www.mwwztech.com/en.html">
+<link rel="alternate" hreflang="x-default" href="https://www.mwwztech.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MWWZTech">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://www.mwwztech.com/en.html">
+<meta property="og:title" content="MWWZTech | HALCON Alternative: Shape Matching, 2D Metrology and Morphology">
+<meta property="og:description" content="Lightweight industrial vision algorithms: shape-based template matching, 2D metrology and region morphology. C/C++/C#/Python on Windows/Linux/Ubuntu/Android.">
+<meta property="og:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MWWZTech | HALCON Alternative">
+<meta name="twitter:description" content="Shape-based template matching, 2D metrology and region morphology for industrial vision.">
+<meta name="twitter:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b5cad'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='34' font-weight='700' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.mwwztech.com/#org",
+      "name": "MWWZTech",
+      "url": "https://www.mwwztech.com/",
+      "email": "mwwz@qq.com",
+      "description": "Industrial machine vision algorithm provider offering a lightweight HALCON alternative: shape-based template matching, 2D metrology and region morphology."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.mwwztech.com/#website",
+      "url": "https://www.mwwztech.com/en.html",
+      "name": "MWWZTech",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://www.mwwztech.com/#org" }
+    }
+  ]
+}
+</script>
+
+<!-- Analytics: Baidu + 51.LA. Uncomment the GA block and use one consistent GA4 ID if needed. -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R6NVH9WSW4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R6NVH9WSW4');
+</script>
+-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?38b39f32899f019fc768821d01582475";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+<script>if (window.LA) { LA.init({id:"3P7Nu0czNckLF8N6",ck:"3P7Nu0czNckLF8N6"}); }</script>
+
+<style>
+:root{
+  --bg:#f6f8fb;
+  --surface:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --brand:#0b5cad;
+  --brand-dark:#084a8c;
+  --brand-soft:#e8f1fb;
+  --accent:#0f766e;
+  --border:#e2e8f0;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --max:1120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC","Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em;letter-spacing:-.01em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.hero-grid > *,.video-grid > *,.about-grid > *,.contact-grid > *,.cards > *{min-width:0}
+.skip{position:absolute;left:-9999px;top:0;background:var(--brand);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100}
+.skip:focus{left:0}
+
+/* 顶部导航 */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;gap:24px;min-height:64px}
+.brand{font-weight:800;font-size:1.15rem;letter-spacing:.06em;color:var(--text)}
+.brand span{color:var(--brand)}
+.brand:hover{text-decoration:none}
+.nav{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
+.nav a{color:var(--muted);font-size:.95rem}
+.nav a:hover{color:var(--brand);text-decoration:none}
+.lang-switch{font-size:.82rem;font-weight:600;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 10px;line-height:1}
+.lang-switch:hover{color:var(--brand);border-color:#b9cfe6;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:10px;padding:11px 18px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{background:var(--brand-dark);border-color:var(--brand-dark);text-decoration:none;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--brand);border-color:#b9cfe6}
+.btn-ghost:hover{background:var(--brand-soft);color:var(--brand-dark)}
+.btn-sm{padding:8px 14px;font-size:.875rem}
+.btn-block{width:100%}
+
+/* 首屏 */
+.hero{padding:64px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{margin:0 0 12px;color:var(--brand);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(1.7rem,3.6vw,2.6rem);margin-bottom:18px}
+.lead{font-size:1.08rem;color:var(--muted);max-width:60ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0 18px}
+.hero-points{display:flex;gap:18px;flex-wrap:wrap;list-style:none;padding:0;margin:0;color:var(--muted);font-size:.9rem}
+.hero-points li::before{content:"✓";color:var(--accent);font-weight:700;margin-right:6px}
+.hero-media{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.hero-media img{border-radius:10px;width:100%}
+.hero-media figcaption{margin-top:10px;color:var(--muted);font-size:.82rem;text-align:center}
+
+/* 数据条 */
+.stats{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:22px 0}
+.stats-grid div{display:flex;flex-direction:column;gap:2px;text-align:center;min-width:0}
+.stats-grid strong{font-size:1.35rem;color:var(--brand)}
+.stats-grid span{color:var(--muted);font-size:.85rem;overflow-wrap:anywhere}
+
+/* 区块 */
+.section{padding:64px 0}
+section[id]{scroll-margin-top:84px}
+.section-alt{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.section-head{max-width:760px;margin-bottom:32px}
+.section-head h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+.group-title{margin:34px 0 16px;font-size:1.05rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+/* 卡片 */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.cards-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.cards-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-media{aspect-ratio:16/10;background:#eef2f7;overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.card-media video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.card-body{display:flex;flex-direction:column;gap:10px;padding:18px;flex:1}
+.card-body h4{margin:0;font-size:1.06rem}
+.card-body p{margin:0;color:var(--muted);font-size:.92rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:600}
+.meta{color:#64748b;font-size:.8rem}
+.card-body .meta{margin-top:auto}
+.card .btn{margin-top:0}
+.note{color:#64748b;font-size:.85rem;margin-top:18px}
+
+/* 视频 */
+.video-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+.video-frame{background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.video-frame video{width:100%;display:block;aspect-ratio:16/10}
+
+/* 特性 / 场景 */
+.feature,.scenario{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand-dark);font-weight:800;font-size:.8rem;margin-bottom:12px}
+.feature h3,.scenario h3{font-size:1.02rem;margin-bottom:6px}
+.feature p,.scenario p{margin:0;color:var(--muted);font-size:.9rem}
+.section-band{border-bottom:1px solid var(--border)}
+.platform-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+.platform-card h3{font-size:1rem;margin-bottom:12px}
+.badges{display:flex;gap:8px;flex-wrap:wrap}
+.badges span{background:var(--brand-soft);color:var(--brand-dark);border-radius:999px;padding:6px 12px;font-size:.85rem;font-weight:600}
+
+/* 对比表 */
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.92rem;vertical-align:top}
+th{background:#f1f5f9;color:#334155;font-weight:700}
+tr:last-child td{border-bottom:0}
+.center{text-align:center;margin-top:24px}
+
+/* 文档卡片 */
+.link-card{display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;color:var(--text);transition:transform .2s,box-shadow .2s}
+.link-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);text-decoration:none}
+.link-card h3{font-size:1.02rem;margin:0}
+.link-card p{margin:0;color:var(--muted);font-size:.9rem}
+.link-card span{color:var(--brand);font-weight:600;font-size:.88rem;margin-top:auto}
+
+/* 关于 */
+.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start}
+.about-list{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.about-list li{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.about-list strong{display:block;font-size:.95rem}
+.about-list span{color:var(--muted);font-size:.86rem}
+
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 18px}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--brand);font-weight:700}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0 0 16px;color:var(--muted);font-size:.92rem}
+
+/* 联系 */
+.contact-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:start}
+.contact-actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 14px}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.contact-card h3{margin-bottom:14px}
+.contact-card dl{margin:0;display:grid;gap:12px}
+.contact-card dt{color:#64748b;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.contact-card dd{margin:2px 0 0;font-size:.95rem}
+.contact-card-body{display:flex;gap:20px;align-items:center;justify-content:space-between}
+.wechat-figure{margin:0;flex:0 0 auto;text-align:center}
+.wechat-figure img{width:170px;height:170px;object-fit:contain;border:1px solid var(--border);border-radius:10px;background:#fff}
+.wechat-figure figcaption{font-size:.78rem;color:var(--muted);margin-top:6px}
+
+/* 页脚 */
+.site-footer{background:#0f172a;color:#cbd5e1;padding:48px 0 24px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.brand-light{color:#fff}
+.brand-light span{color:#7dd3fc}
+.site-footer h4{color:#fff;font-size:.9rem;margin-bottom:10px}
+.site-footer a,.site-footer .link-btn{display:block;color:#cbd5e1;font-size:.9rem;margin-bottom:6px;background:none;border:0;padding:0;text-align:left;cursor:pointer;font-family:inherit}
+.site-footer a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #1e293b;margin-top:32px;padding-top:18px;display:grid;gap:6px}
+.footer-bottom p{margin:0;font-size:.78rem;color:#94a3b8}
+.trademark{color:#64748b}
+
+/* 弹窗 */
+dialog{border:0;border-radius:16px;padding:24px;max-width:min(92vw,360px);box-shadow:0 24px 60px rgba(0,0,0,.3);text-align:center}
+dialog::backdrop{background:rgba(15,23,42,.6)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.dialog-head h3{margin:0;font-size:1.05rem}
+.dialog-close{border:0;background:#f1f5f9;color:#334155;width:32px;height:32px;border-radius:50%;font-size:1.2rem;line-height:1;cursor:pointer}
+dialog img{margin:0 auto 10px;border:1px solid var(--border);border-radius:8px}
+dialog p{margin:0;color:var(--muted);font-size:.9rem}
+:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+
+/* 响应式 */
+@media (max-width:900px){
+  .hero-grid,.video-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .hero{padding-top:40px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  section[id]{scroll-margin-top:128px}
+  .nav{order:3;width:100%;margin-left:0;gap:14px;padding-bottom:10px}
+  .header-inner{flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+}
+@media (max-width:640px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .section{padding:48px 0}
+  .hero-actions .btn{flex:1 1 auto}
+  .contact-card-body{flex-direction:column;align-items:flex-start}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="MWWZTech home">MWWZ<span>TECH</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#products">Products</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#compare">Compare</a>
+      <a href="#docs">Docs</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="lang-switch" href="index.html" hreflang="zh-CN" lang="zh-CN">中文</a>
+    <a class="btn btn-sm" href="#contact">Get a Trial</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Industrial Vision · HALCON Alternative</p>
+        <h1>Replace HALCON with a lightweight vision library</h1>
+        <p class="lead">Shape-based template matching, 2D metrology and region morphology. C / C++ / C# / Python on Windows / Linux / Ubuntu / Android. Licensed per project.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#products">Download Demos</a>
+          <a class="btn btn-ghost" href="#contact">Book a Demo</a>
+        </div>
+        <ul class="hero-points">
+          <li>Demos available for direct download</li>
+          <li>Direct engineering support</li>
+          <li>Per-project / per-module licensing</li>
+        </ul>
+      </div>
+      <figure class="hero-media">
+        <a href="assets/mwwz_vs_halcon.png" target="_blank" rel="noopener">
+          <img src="assets/mwwz_vs_halcon.png" alt="MWWZ vs HALCON capability comparison" fetchpriority="high">
+        </a>
+        <figcaption>MWWZ vs HALCON capability comparison (click to enlarge)</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Capability overview">
+    <div class="wrap stats-grid">
+      <div><strong>3</strong><span>Core algorithm modules</span></div>
+      <div><strong>4</strong><span>Languages: C / C++ / C# / Python</span></div>
+      <div><strong>4</strong><span>OS: Windows / Linux / Ubuntu / Android</span></div>
+      <div><strong>3</strong><span>CPU: x86 / x86_64 / aarch64</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="products">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Products and Demos</p>
+        <h2>Try the demo first, then decide on licensing</h2>
+        <p class="lead">The demos cover template matching, 2D metrology, morphology and dedicated applications. Feature set, platform support and dependencies are documented in each download package.</p>
+      </div>
+
+      <h3 class="group-title">Algorithm Modules</h3>
+      <div class="cards cards-4">
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_mfc_x86.png" alt="Shape template matching MFC demo interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Algorithm</span><span class="tag">MFC</span><span class="tag">x86</span></div>
+            <h4>Shape Template Matching (MFC)</h4>
+            <p>Shape-based template matching for positioning, alignment and presence/absence checks. Includes an MFC demo for quick evaluation.</p>
+            <p class="meta">Version 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_mfc_x86_2026.11.18.zip" data-download="demo_mfc_x86">Download Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_qt_x64.png" alt="Shape template matching QT demo interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Algorithm</span><span class="tag">QT</span><span class="tag">x64</span></div>
+            <h4>Shape Template Matching (QT)</h4>
+            <p>The same shape-matching engine in a QT build, suitable for QT-based UI integration and evaluation.</p>
+            <p class="meta">Version 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_qt_x64_2026.11.18.zip" data-download="demo_qt_x64">Download Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_meas.png" alt="2D metrology and region morphology demo interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Algorithm</span><span class="tag">MFC</span></div>
+            <h4>2D Metrology and Region Morphology (MFC)</h4>
+            <p>2D metrology and region-morphology operators for dimensional measurement and region processing.</p>
+            <p class="meta">Version 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_meas_2026.11.18.zip" data-download="demo_meas">Download Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/demo_cam.png" alt="Contact angle measurement demo interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">App Demo</span><span class="tag">MFC</span><span class="tag">x64</span></div>
+            <h4>Contact Angle Measurement (MFC)</h4>
+            <p>A dedicated demo for droplet and contact-angle measurement.</p>
+            <p class="meta">Version 2026.11.18 · ZIP</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/demo_cam_x64_2026.11.18.zip" data-download="demo_cam_x64">Download Demo</a>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="group-title">Tools and Applications</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/ellipse_divide.png" alt="Ellipse division tool interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Tool</span><span class="tag">Coming Soon</span></div>
+            <h4>Ellipse Division</h4>
+            <p>Ellipse division tool. Demo in preparation.</p>
+            <p class="meta">Not available yet</p>
+            <a class="btn btn-sm btn-block btn-ghost" href="#contact">Book a Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/mask_editor.png" alt="MaskEditor mask editing tool interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Tool</span><span class="tag">RAR</span></div>
+            <h4>MaskEditor</h4>
+            <p>Mask editing tool for annotation and post-processing.</p>
+            <p class="meta">RAR package</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/MaskEditor2.0.rar" data-download="MaskEditor2.0">Download Tool</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/landrop_me.png" alt="LANDropMe utility interface" loading="lazy" decoding="async">
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">Tool</span><span class="tag">RAR</span></div>
+            <h4>LANDropMe</h4>
+            <p>A small utility; see the download package for features and usage.</p>
+            <p class="meta">RAR package</p>
+            <a class="btn btn-sm btn-block" href="https://dl.mwwztech.com/LANDropMe.rar" data-download="LANDropMe">Download Tool</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <video controls preload="none" playsinline aria-label="Bin Packing nesting demo video">
+              <source src="assets/cho_0.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">App Demo</span><span class="tag">Video</span></div>
+            <h4>Bin Packing</h4>
+            <p>Bin-packing and nesting algorithm demo.</p>
+            <p class="meta">Video ~13 MB</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <video controls preload="none" playsinline aria-label="Laser Cutting path demo video">
+              <source src="assets/cho_1.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+          <div class="card-body">
+            <div class="tags"><span class="tag">App Demo</span><span class="tag">Video</span></div>
+            <h4>Laser Cutting</h4>
+            <p>Laser-cutting path demo.</p>
+            <p class="meta">Video ~12 MB</p>
+          </div>
+        </article>
+      </div>
+
+      <p class="note">Demos are primarily Windows + MFC/QT builds. The production SDK supports C / C++ / C# / Python on Windows / Linux / Ubuntu / Android; module availability may vary. RAR packages require 7-Zip or WinRAR. Videos are large; Wi-Fi is recommended.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="demo-video">
+    <div class="wrap video-grid">
+      <div>
+        <p class="eyebrow">Video Demo</p>
+        <h2>Shape matching in action</h2>
+        <p class="lead">This video shows shape-based template matching running on a real image. It is about 26 MB and loads only when you press play — it will not auto-download when the page opens.</p>
+        <p class="note">Wi-Fi recommended.</p>
+      </div>
+      <div class="video-frame">
+        <video controls preload="none" playsinline aria-label="Shape template matching demo video">
+          <source src="assets/shape_match2.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band" id="platforms">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Platforms and Languages</p>
+        <h2>Cross-language, cross-platform, cross-architecture</h2>
+        <p class="lead">One algorithm stack, available across mainstream languages, operating systems and CPU architectures, so it fits into your existing vision system.</p>
+      </div>
+      <div class="cards cards-3">
+        <article class="platform-card">
+          <h3>Languages</h3>
+          <div class="badges"><span>C</span><span>C++</span><span>C#</span><span>Python</span></div>
+        </article>
+        <article class="platform-card">
+          <h3>Operating Systems</h3>
+          <div class="badges"><span>Windows</span><span>Linux</span><span>Ubuntu</span><span>Android</span></div>
+        </article>
+        <article class="platform-card">
+          <h3>CPU Architectures</h3>
+          <div class="badges"><span>x86</span><span>x86_64</span><span>aarch64</span></div>
+        </article>
+      </div>
+      <p class="note">Module availability may vary by platform and architecture; please confirm with us for your target setup.</p>
+    </div>
+  </section>
+
+  <section class="section" id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why MWWZTech</p>
+        <h2>Built to integrate, not just to run</h2>
+        <p class="lead">We focus on the matching, metrology and morphology capabilities industrial vision projects use most — not on being everything to everyone.</p>
+      </div>
+      <div class="cards cards-4">
+        <article class="feature">
+          <span class="num">01</span>
+          <h3>In-house algorithms</h3>
+          <p>Shape matching, 2D metrology and region morphology are developed in-house and continuously improved.</p>
+        </article>
+        <article class="feature">
+          <span class="num">02</span>
+          <h3>Lightweight integration</h3>
+          <p>C / C++ / C# / Python APIs on Windows / Linux / Ubuntu / Android, designed to embed into existing projects.</p>
+        </article>
+        <article class="feature">
+          <span class="num">03</span>
+          <h3>Predictable cost</h3>
+          <p>Per-project and per-module licensing avoids the cost of a full commercial vision suite.</p>
+        </article>
+        <article class="feature">
+          <span class="num">04</span>
+          <h3>Direct support</h3>
+          <p>Talk directly to the engineers who build the algorithms.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="compare">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Selection Guide</p>
+        <h2>Replacing HALCON? Start with these dimensions</h2>
+        <p class="lead">If you are evaluating a HALCON alternative, compare licensing, deployment, SDK integration, support and cost.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>MWWZTech</th><th>Traditional commercial vision library (e.g. HALCON)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Licensing</td><td>Per project / per module</td><td>Typically development + runtime / module licenses</td></tr>
+            <tr><td>Deployment</td><td>Windows / Linux / Ubuntu / Android; C / C++ / C# / Python</td><td>Runtime installation; licensing-dependent deployment</td></tr>
+            <tr><td>SDK integration</td><td>C / C++ / C# / Python APIs + MFC / QT samples</td><td>HDevelop + proprietary API stack</td></tr>
+            <tr><td>Support</td><td>Direct engineering support</td><td>Vendor / distributor support organization</td></tr>
+            <tr><td>Best fit</td><td>Positioning, metrology, morphology and similar fixed tasks</td><td>Broad feature coverage and a mature ecosystem</td></tr>
+            <tr><td>Cost</td><td>Project-based and predictable</td><td>Typically higher, module-based pricing</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">This table is a general comparison only; actual terms depend on the specific version and commercial agreement. HALCON is a registered trademark of MVTec Software GmbH. MWWZTech is not affiliated with MVTec.</p>
+      <div class="center"><a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20Detailed%20Comparison">Request a Detailed Comparison</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="scenarios">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Applications</p>
+        <h2>What you can build with it</h2>
+      </div>
+      <div class="cards cards-4">
+        <article class="scenario">
+          <span class="num">01</span>
+          <h3>Positioning and Alignment</h3>
+          <p>Shape matching for part location, angle correction and presence/absence checks.</p>
+        </article>
+        <article class="scenario">
+          <span class="num">02</span>
+          <h3>Dimensional Metrology</h3>
+          <p>2D metrology for length, angle, circle and line measurements.</p>
+        </article>
+        <article class="scenario">
+          <span class="num">03</span>
+          <h3>Region Processing</h3>
+          <p>Morphology for denoising, segmentation and defect-region processing.</p>
+        </article>
+        <article class="scenario">
+          <span class="num">04</span>
+          <h3>Contact Angle and Droplets</h3>
+          <p>Contact-angle measurement for wettability and surface-treatment evaluation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="docs">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Docs and Technical Notes</p>
+        <h2>Implementation details, written down</h2>
+        <p class="lead">The development blog covers algorithm implementation, HALCON-alternative practices and engineering notes.</p>
+      </div>
+      <div class="cards cards-3">
+        <a class="link-card" href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">
+          <h3>Development Blog</h3>
+          <p>Algorithm details, HALCON-alternative practices and engineering notes.</p>
+          <span>Visit the blog →</span>
+        </a>
+        <a class="link-card" href="https://www.mwwztech.xyz/2026/10/15/HALCON-Perspective-Deformable-Matching-%E5%AE%9E%E7%8E%B0.html" target="_blank" rel="noopener">
+          <h3>HALCON Perspective Deformable Matching</h3>
+          <p>Implementation notes on perspective deformable matching.</p>
+          <span>Read the article →</span>
+        </a>
+        <a class="link-card" href="https://www.mwwztech.xyz/all-posts.html" target="_blank" rel="noopener">
+          <h3>All Articles</h3>
+          <p>Browse more technical articles and updates.</p>
+          <span>View all →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">About MWWZTech</p>
+        <h2>Industrial vision algorithms, built to ship</h2>
+        <p>MWWZTech develops industrial machine vision algorithms and provides a lightweight alternative to HALCON. Core capabilities include shape-based template matching, 2D metrology, region morphology and dedicated measurement applications.</p>
+        <p>MFC / QT demos are available today. The production SDK supports C / C++ / C# / Python on Windows / Linux / Ubuntu / Android, with per-project licensing and customization. We care about stability on the line, integration cost and long-term maintainability.</p>
+      </div>
+      <ul class="about-list">
+        <li><strong>In-house algorithms</strong><span>Core algorithms are developed and maintained in-house.</span></li>
+        <li><strong>Evaluate first</strong><span>Download a demo and validate before you commit.</span></li>
+        <li><strong>Direct support</strong><span>Work directly with the engineering team.</span></li>
+        <li><strong>Per-project licensing</strong><span>License the modules and scale you actually need.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions before we start</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Can MWWZTech replace HALCON directly?</summary>
+          <p>It is not a drop-in API replacement. It provides comparable algorithm capabilities; existing projects need an interface, operator and scenario migration assessment.</p>
+        </details>
+        <details>
+          <summary>Which platforms and languages are supported?</summary>
+          <p>C, C++, C#, Python; Windows, Linux, Ubuntu, Android; x86, x86_64, aarch64. Module availability may vary by platform — please confirm for your target setup.</p>
+        </details>
+        <details>
+          <summary>How does licensing and pricing work?</summary>
+          <p>Per project / per module. Share your application, image size and cycle-time requirements, and we will propose the right scope and quote.</p>
+        </details>
+        <details>
+          <summary>Do the demos expire?</summary>
+          <p>Demos are for evaluation. Production use requires a license; specific limits are documented in the demo package.</p>
+        </details>
+        <details>
+          <summary>Do you provide source code or customization?</summary>
+          <p>Depends on the engagement model. Custom development and technical support are available — contact us to discuss.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Contact and Trial</p>
+        <h2>Tell us about your application</h2>
+        <p>Please include: application (positioning / metrology / defect / contact angle), image size, cycle-time requirement, target platform (Windows / Linux / Ubuntu / Android), language (C / C++ / C# / Python) and CPU architecture (x86 / x86_64 / aarch64). We will recommend the right modules and licensing model.</p>
+        <div class="contact-actions">
+          <a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20Solution%20Inquiry">Send Email</a>
+          <a class="btn btn-ghost" href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">Submit Feedback</a>
+          <a class="btn btn-ghost" href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>WeChat</a>
+        </div>
+        <p class="note">Email: mwwz@qq.com · You can also <a href="/register.html">register an account</a> for software license review.</p>
+      </div>
+      <div class="contact-card">
+        <h3>Quick Contact</h3>
+        <div class="contact-card-body">
+          <dl>
+            <div><dt>Email</dt><dd><a href="mailto:mwwz@qq.com">mwwz@qq.com</a></dd></div>
+            <div><dt>Feedback</dt><dd><a href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">Online form</a></dd></div>
+            <div><dt>Register</dt><dd><a href="/register.html">Create account</a></dd></div>
+            <div><dt>Blog</dt><dd><a href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">Development notes</a></dd></div>
+          </dl>
+          <figure class="wechat-figure">
+            <img src="assets/wechat.png" alt="MWWZTech WeChat QR code" width="170" height="170" loading="lazy" decoding="async">
+            <figcaption>Scan to add us on WeChat</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand brand-light" href="#top">MWWZ<span>TECH</span></a>
+      <p>Industrial vision algorithms. A lightweight HALCON alternative.</p>
+    </div>
+    <div>
+      <h4>Products</h4>
+      <a href="#products">Template Matching</a>
+      <a href="#products">2D Metrology</a>
+      <a href="#products">Tools and Applications</a>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <a href="https://www.mwwztech.xyz/" target="_blank" rel="noopener">Development Blog</a>
+      <a href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">Feedback</a>
+      <a href="/register.html">Register</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="mailto:mwwz@qq.com">mwwz@qq.com</a>
+      <a href="assets/woa.jpg" target="_blank" rel="noopener" data-open-wechat>WeChat</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <p>© 2026 MWWZTech. All rights reserved.</p>
+    <p>This site uses Baidu Analytics and 51.LA for traffic statistics. Registration and feedback data are used only for account review and issue handling.</p>
+    <p class="trademark">HALCON is a registered trademark of MVTec Software GmbH. MWWZTech is not affiliated with MVTec.</p>
+  </div>
+</footer>
+
+<dialog id="wechatDialog" aria-labelledby="wechatTitle">
+  <form method="dialog" class="dialog-head">
+    <h3 id="wechatTitle">WeChat</h3>
+    <button class="dialog-close" value="close" aria-label="Close">×</button>
+  </form>
+  <img src="assets/woa.jpg" alt="MWWZTech WeChat official account QR code" width="220" height="220" loading="lazy">
+  <p>Open WeChat and scan to follow MWWZTech</p>
+</dialog>
+
+<script>
+(function () {
+  var dialog = document.getElementById('wechatDialog');
+  if (dialog) {
+    document.querySelectorAll('[data-open-wechat]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (typeof dialog.showModal !== 'function') return; // keep the image link as fallback
+        event.preventDefault();
+        if (!dialog.open) dialog.showModal();
+      });
+    });
+    dialog.addEventListener('click', function (event) {
+      var rect = dialog.getBoundingClientRect();
+      var inside = event.clientX >= rect.left && event.clientX <= rect.right &&
+                   event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!inside) dialog.close();
+    });
+  }
+
+  document.querySelectorAll('[data-download]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var name = link.getAttribute('data-download');
+      if (window._hmt) window._hmt.push(['_trackEvent', 'download', name]);
+      if (window.gtag) window.gtag('event', 'download', { file_name: name });
+    });
+  });
+})();
+</script>
+</body>
+</html>
+

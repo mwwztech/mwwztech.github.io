@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MWWZTech｜HALCON 替代方案：形状模板匹配、2D 测量与形态学</title>
-<meta name="description" content="MWWZTech 提供轻量工业视觉算法方案，替代 HALCON 的高成本授权：形状模板匹配、2D 测量、区域形态学，支持 C++/C#/Python 与 Windows/Linux/Ubuntu/Android，按项目授权。">
-<meta name="keywords" content="HALCON替代,机器视觉,形状模板匹配,2D测量,区域形态学,工业视觉,C++,C#,Python,Windows,Linux,Ubuntu,Android,MWWZTech">
+<meta name="description" content="MWWZTech 提供轻量工业视觉算法方案，替代 HALCON 的高成本授权：形状模板匹配、2D 测量、区域形态学，支持 C/C++/C#/Python 与 Windows/Linux/Ubuntu/Android，按项目授权。">
+<meta name="keywords" content="HALCON替代,机器视觉,形状模板匹配,2D测量,区域形态学,工业视觉,C,C++,C#,Python,Windows,Linux,Ubuntu,Android,MWWZTech">
 <meta name="author" content="MWWZTech">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0b5cad">
 <link rel="canonical" href="https://www.mwwztech.com/">
+<link rel="alternate" hreflang="zh-CN" href="https://www.mwwztech.com/">
+<link rel="alternate" hreflang="en" href="https://www.mwwztech.com/en.html">
+<link rel="alternate" hreflang="x-default" href="https://www.mwwztech.com/">
 
 <!-- Open Graph / 社交分享 -->
 <meta property="og:type" content="website">
@@ -17,11 +20,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:url" content="https://www.mwwztech.com/">
 <meta property="og:title" content="MWWZTech｜HALCON 替代方案：形状模板匹配、2D 测量与形态学">
-<meta property="og:description" content="轻量工业视觉算法方案：形状模板匹配、2D 测量、区域形态学，支持 C++/C#/Python 与 Windows/Linux/Ubuntu/Android，按项目授权。">
+<meta property="og:description" content="轻量工业视觉算法方案：形状模板匹配、2D 测量、区域形态学，支持 C/C++/C#/Python 与 Windows/Linux/Ubuntu/Android，按项目授权。">
 <meta property="og:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MWWZTech｜HALCON 替代方案">
-<meta name="twitter:description" content="形状模板匹配、2D 测量、区域形态学，支持 C++/C#/Python 与 Windows/Linux/Ubuntu/Android。">
+<meta name="twitter:description" content="形状模板匹配、2D 测量、区域形态学，支持 C/C++/C#/Python 与 Windows/Linux/Ubuntu/Android。">
 <meta name="twitter:image" content="https://www.mwwztech.com/assets/mwwz_vs_halcon.png">
 
 <!-- 站点图标（内联 SVG，无需额外文件） -->
@@ -38,7 +41,7 @@
       "name": "MWWZTech",
       "url": "https://www.mwwztech.com/",
       "email": "mwwz@qq.com",
-      "description": "工业机器视觉算法方案提供商，提供 HALCON 的轻量替代方案：形状模板匹配、2D 测量、区域形态学，支持 C++/C#/Python 与 Windows/Linux/Ubuntu/Android。"
+      "description": "工业机器视觉算法方案提供商，提供 HALCON 的轻量替代方案：形状模板匹配、2D 测量、区域形态学，支持 C/C++/C#/Python 与 Windows/Linux/Ubuntu/Android。"
     },
     {
       "@type": "WebSite",
@@ -112,6 +115,8 @@ p{margin:0 0 1em}
 .nav{display:flex;gap:18px;flex-wrap:wrap;margin-left:auto}
 .nav a{color:var(--muted);font-size:.95rem}
 .nav a:hover{color:var(--brand);text-decoration:none}
+.lang-switch{font-size:.82rem;font-weight:600;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 10px;line-height:1}
+.lang-switch:hover{color:var(--brand);border-color:#b9cfe6;text-decoration:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:1px solid var(--brand);border-radius:10px;padding:11px 18px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
 .btn:hover{background:var(--brand-dark);border-color:var(--brand-dark);text-decoration:none;transform:translateY(-1px)}
 .btn-ghost{background:transparent;color:var(--brand);border-color:#b9cfe6}
@@ -284,6 +289,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <a href="#about">关于</a>
       <a href="#contact">联系</a>
     </nav>
+    <a class="lang-switch" href="en.html" hreflang="en" lang="en">EN</a>
     <a class="btn btn-sm" href="#contact">获取试用</a>
   </div>
 </header>
@@ -295,7 +301,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <div>
         <p class="eyebrow">工业视觉算法 · HALCON 替代方案</p>
         <h1>用轻量算法库替代 HALCON 做工业视觉检测</h1>
-        <p class="lead">形状模板匹配、2D 测量、区域形态学，支持 C++ / C# / Python，Windows / Linux / Ubuntu / Android，按项目授权。</p>
+        <p class="lead">形状模板匹配、2D 测量、区域形态学，支持 C / C++ / C# / Python，Windows / Linux / Ubuntu / Android，按项目授权。</p>
         <div class="hero-actions">
           <a class="btn" href="#products">下载试用</a>
           <a class="btn btn-ghost" href="#contact">预约演示</a>
@@ -319,7 +325,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
   <section class="stats" aria-label="核心能力概览">
     <div class="wrap stats-grid">
       <div><strong>3</strong><span>核心算法模块</span></div>
-      <div><strong>3</strong><span>开发语言：C++ / C# / Python</span></div>
+      <div><strong>4</strong><span>开发语言：C / C++ / C# / Python</span></div>
       <div><strong>4</strong><span>操作系统：Windows / Linux / Ubuntu / Android</span></div>
       <div><strong>3</strong><span>CPU 架构：x86 / x86_64 / aarch64</span></div>
     </div>
@@ -461,7 +467,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         </article>
       </div>
 
-      <p class="note">演示程序以 Windows + MFC/QT 为主；正式 SDK 支持 C++ / C# / Python 与 Windows / Linux / Ubuntu / Android，具体模块可用性请沟通。RAR 包请使用 7-Zip / WinRAR 解压；视频文件较大，建议在 Wi-Fi 下观看。</p>
+      <p class="note">演示程序以 Windows + MFC/QT 为主；正式 SDK 支持 C / C++ / C# / Python 与 Windows / Linux / Ubuntu / Android，具体模块可用性请沟通。RAR 包请使用 7-Zip / WinRAR 解压；视频文件较大，建议在 Wi-Fi 下观看。</p>
     </div>
   </section>
 
@@ -494,7 +500,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <div class="cards cards-3">
         <article class="platform-card">
           <h3>开发语言</h3>
-          <div class="badges"><span>C++</span><span>C#</span><span>Python</span></div>
+          <div class="badges"><span>C</span><span>C++</span><span>C#</span><span>Python</span></div>
         </article>
         <article class="platform-card">
           <h3>操作系统</h3>
@@ -526,7 +532,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         <article class="feature">
           <span class="num">02</span>
           <h3>轻量集成</h3>
-          <p>支持 C++ / C# / Python，覆盖 Windows / Linux / Ubuntu / Android，便于嵌入现有项目。</p>
+          <p>支持 C / C++ / C# / Python，覆盖 Windows / Linux / Ubuntu / Android，便于嵌入现有项目。</p>
         </article>
         <article class="feature">
           <span class="num">03</span>
@@ -557,8 +563,8 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
           </thead>
           <tbody>
             <tr><td>授权方式</td><td>按项目 / 模块授权</td><td>通常按开发版 + 运行版 / 模块授权</td></tr>
-            <tr><td>部署方式</td><td>Windows / Linux / Ubuntu / Android，支持 C++ / C# / Python</td><td>安装运行时，按授权方式部署</td></tr>
-            <tr><td>二次开发</td><td>C++ / C# / Python 接口 + MFC / QT 示例</td><td>HDevelop + 自有 API 体系</td></tr>
+            <tr><td>部署方式</td><td>Windows / Linux / Ubuntu / Android，支持 C / C++ / C# / Python</td><td>安装运行时，按授权方式部署</td></tr>
+            <tr><td>二次开发</td><td>C / C++ / C# / Python 接口 + MFC / QT 示例</td><td>HDevelop + 自有 API 体系</td></tr>
             <tr><td>技术支持</td><td>中文，直接对接研发</td><td>厂商 / 代理技术支持体系</td></tr>
             <tr><td>适用场景</td><td>定位、测量、形态学等固定任务</td><td>功能覆盖广，生态成熟</td></tr>
             <tr><td>成本</td><td>按项目可控</td><td>通常较高，按模块计费</td></tr>
@@ -637,7 +643,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         <p class="eyebrow">关于 MWWZTech</p>
         <h2>专注工业视觉算法，做可落地的替代方案</h2>
         <p>MWWZTech 专注于工业机器视觉算法研发，提供 HALCON 的轻量替代方案。核心能力包括基于形状的模板匹配、2D 测量、区域形态学与专用测量应用。</p>
-        <p>目前已提供 MFC / QT 演示程序；正式 SDK 支持 C++ / C# / Python 与 Windows / Linux / Ubuntu / Android，支持按项目授权与定制合作。我们更关注算法在真实产线上的稳定性、集成成本与可维护性。</p>
+        <p>目前已提供 MFC / QT 演示程序；正式 SDK 支持 C / C++ / C# / Python 与 Windows / Linux / Ubuntu / Android，支持按项目授权与定制合作。我们更关注算法在真实产线上的稳定性、集成成本与可维护性。</p>
       </div>
       <ul class="about-list">
         <li><strong>自研算法</strong><span>核心算法自主实现，持续迭代。</span></li>
@@ -662,7 +668,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
         </details>
         <details>
           <summary>支持哪些平台和开发语言？</summary>
-          <p>支持 C++、C#、Python；操作系统支持 Windows、Linux、Ubuntu、Android；CPU 架构支持 x86、x86_64、aarch64。具体模块在不同平台上的可用性，以实际版本和沟通结果为准。</p>
+          <p>支持 C、C++、C#、Python；操作系统支持 Windows、Linux、Ubuntu、Android；CPU 架构支持 x86、x86_64、aarch64。具体模块在不同平台上的可用性，以实际版本和沟通结果为准。</p>
         </details>
         <details>
           <summary>如何授权和收费？</summary>
@@ -686,7 +692,7 @@ dialog p{margin:0;color:var(--muted);font-size:.9rem}
       <div>
         <p class="eyebrow">联系与试用</p>
         <h2>告诉我们你的场景，获取合适的方案</h2>
-        <p>请尽量说明：应用场景（定位 / 测量 / 缺陷 / 接触角）、图像尺寸、节拍要求、目标平台（Windows / Linux / Ubuntu / Android）、开发语言（C++ / C# / Python）、CPU 架构（x86 / x86_64 / aarch64）。我们会据此给出模块建议与授权方式。</p>
+        <p>请尽量说明：应用场景（定位 / 测量 / 缺陷 / 接触角）、图像尺寸、节拍要求、目标平台（Windows / Linux / Ubuntu / Android）、开发语言（C / C++ / C# / Python）、CPU 架构（x86 / x86_64 / aarch64）。我们会据此给出模块建议与授权方式。</p>
         <div class="contact-actions">
           <a class="btn" href="mailto:mwwz@qq.com?subject=MWWZTech%20%E6%96%B9%E6%A1%88%E5%92%A8%E8%AF%A2">发送邮件</a>
           <a class="btn btn-ghost" href="https://auth.mwwztech.com/feedback" target="_blank" rel="noopener">提交反馈</a>
