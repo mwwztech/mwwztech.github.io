@@ -1,21 +1,35 @@
 (function () {
-  var fab = document.getElementById('contactFab');
-  var dlg = document.getElementById('contactDialog');
-  if (!fab || !dlg) return;
+  var rail = document.getElementById('contactRail');
+  if (!rail) return;
 
-  fab.addEventListener('click', function () {
-    if (typeof dlg.showModal !== 'function') return;
-    if (!dlg.open) dlg.showModal();
+  var items = Array.prototype.slice.call(rail.querySelectorAll('.contact-rail-item'));
+
+  function closeAll(except) {
+    items.forEach(function (item) {
+      if (item === except) return;
+      item.classList.remove('open');
+      var btn = item.querySelector('.contact-rail-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  items.forEach(function (item) {
+    var btn = item.querySelector('.contact-rail-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function (event) {
+      event.stopPropagation();
+      var willOpen = !item.classList.contains('open');
+      closeAll(item);
+      item.classList.toggle('open', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
   });
 
-  dlg.querySelectorAll('[data-close-contact]').forEach(function (btn) {
-    btn.addEventListener('click', function () { dlg.close(); });
+  document.addEventListener('click', function (event) {
+    if (!rail.contains(event.target)) closeAll(null);
   });
 
-  dlg.addEventListener('click', function (event) {
-    var rect = dlg.getBoundingClientRect();
-    var inside = event.clientX >= rect.left && event.clientX <= rect.right &&
-                 event.clientY >= rect.top && event.clientY <= rect.bottom;
-    if (!inside) dlg.close();
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeAll(null);
   });
 })();

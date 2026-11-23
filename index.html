@@ -556,36 +556,36 @@ var _hmt = _hmt || [];
   </div>
 </footer>
 
-<!-- 在线咨询 -->
-<button class="contact-fab" id="contactFab" type="button" aria-haspopup="dialog" aria-controls="contactDialog">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-3.2-.6L3 21l1.7-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg>
-  <span>在线咨询</span>
-</button>
-
-<dialog id="contactDialog" aria-labelledby="contactTitle">
-  <div class="contact-panel-head">
-    <h3 id="contactTitle">在线咨询</h3>
-    <button class="dialog-close" type="button" data-close-contact aria-label="关闭">×</button>
-  </div>
-  <div class="contact-panel-body">
-    <p class="contact-intro">选择你喜欢的方式联系我们。</p>
-    <div class="contact-channels">
-      <div class="contact-channel wechat">
-        <img src="assets/wechat.png" alt="MWWZTech 微信二维码" width="110" height="110" loading="lazy" decoding="async">
-        <span>微信扫码</span>
-      </div>
-      <a class="contact-channel" href="https://wpa.qq.com/msgrd?v=3&amp;uin=66557370&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">
-        <strong>QQ 咨询</strong>
-        <span class="channel-sub">66557370</span>
-      </a>
-      <a class="contact-channel" href="mailto:mwwz@qq.com">
-        <strong>邮件咨询</strong>
-        <span class="channel-sub">mwwz@qq.com</span>
-      </a>
+<!-- 在线咨询（微信 / QQ / 邮件） -->
+<div class="contact-rail" id="contactRail" aria-label="在线咨询">
+  <div class="contact-rail-item">
+    <button class="contact-rail-btn" type="button" aria-label="微信二维码" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9.5 4.5c-3.6 0-6.5 2.4-6.5 5.4 0 1.7 1 3.2 2.5 4.2l-.6 2.2 2.4-1.2c.7.2 1.4.3 2.2.3 3.6 0 6.5-2.4 6.5-5.4S13.1 4.5 9.5 4.5z"/><path d="M15.2 9.1c2.9 0 5.3 2 5.3 4.5 0 1.4-.8 2.7-2 3.5l.5 1.8-2-1c-.6.2-1.2.2-1.8.2-2.9 0-5.3-2-5.3-4.5s2.4-4.5 5.3-4.5z"/></svg>
+    </button>
+    <div class="contact-rail-pop contact-rail-pop-wechat">
+      <img src="assets/wechat.png" alt="MWWZTech 微信二维码" width="130" height="130" loading="lazy" decoding="async">
+      <span>扫码加微信</span>
     </div>
-    <p class="contact-note">QQ 咨询：66557370。如果还不是好友，请先在 QQ 中搜索该号码添加好友（也可打开 <a href="https://user.qzone.qq.com/66557370" target="_blank" rel="noopener">QQ 资料页</a>），再发起咨询。</p>
   </div>
-</dialog>
+  <div class="contact-rail-item">
+    <button class="contact-rail-btn" type="button" aria-label="QQ 咨询：66557370" aria-expanded="false">
+      <span class="contact-rail-qq">QQ</span>
+    </button>
+    <div class="contact-rail-pop contact-rail-pop-text">
+      <div><strong>QQ：66557370</strong><small>未加好友请先添加</small></div>
+      <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=66557370&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">打开 QQ</a>
+    </div>
+  </div>
+  <div class="contact-rail-item">
+    <button class="contact-rail-btn" type="button" aria-label="邮件咨询：mwwz@qq.com" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 6 8 6 8-6"/></svg>
+    </button>
+    <div class="contact-rail-pop contact-rail-pop-text">
+      <div><strong>mwwz@qq.com</strong><small>点击发送邮件</small></div>
+      <a href="mailto:mwwz@qq.com">发送</a>
+    </div>
+  </div>
+</div>
 
 <!-- 微信 / 公众号弹窗 -->
 <dialog id="wechatDialog" aria-labelledby="wechatTitle">
